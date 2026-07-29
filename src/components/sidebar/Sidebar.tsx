@@ -18,6 +18,7 @@ import data from "../../modules/nexxa/nexxa.json";
 interface SidebarProps {
   collapsed: boolean;
   onToggle: () => void;
+  onResetChat: () => void;
 }
 
 interface NavItemProps {
@@ -74,7 +75,7 @@ function NavItem({ Icon, label, route, collapsed }: NavItemProps) {
   );
 }
 
-function Sidebar({ collapsed, onToggle }: SidebarProps) {
+function Sidebar({ collapsed, onToggle, onResetChat }: SidebarProps) {
   return (
     <aside className={`sidebar${collapsed ? " sidebar--collapsed" : ""}`}>
       <div className="sidebar-inner">
@@ -120,6 +121,7 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
             className="new-chat-btn"
             whileHover="hover"
             whileTap={{ scale: 0.98 }}
+            onClick={onResetChat}
           >
             <motion.span
               style={{ display: "inline-flex" }}

@@ -5,13 +5,20 @@ import { Paperclip, Mic, ArrowUp, ChevronDown, Check } from "lucide-react";
 interface ChatInputProps {
   placeholder: string;
   models: string[];
+  onSend: (message: string) => void;
 }
 
-function ChatInput({ placeholder, models }: ChatInputProps) {
+function ChatInput({ placeholder, models, onSend }: ChatInputProps) {
   const [value, setValue] = useState("");
   const [selectedModel, setSelectedModel] = useState(models[0]);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  function handleSend() {
+    if (!value.trim()) return;
+    onSend(value.trim());
+    setValue("");
+  }
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -35,6 +42,12 @@ function ChatInput({ placeholder, models }: ChatInputProps) {
           placeholder={placeholder}
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              handleSend();
+            }
+          }}
           rows={1}
         />
         <div className="chat-input-tools">
@@ -113,6 +126,7 @@ function ChatInput({ placeholder, models }: ChatInputProps) {
               whileHover={value.trim() ? { scale: 1.1 } : undefined}
               whileTap={value.trim() ? { scale: 0.9 } : undefined}
               transition={{ duration: 0.15 }}
+              onClick={handleSend}
             >
               <ArrowUp size={20} />
             </motion.button>

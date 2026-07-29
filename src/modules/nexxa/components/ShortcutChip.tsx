@@ -4,9 +4,10 @@ import type { LucideIcon } from "lucide-react";
 interface ShortcutChipProps {
   icon: LucideIcon;
   label: string;
+  onClick?: () => void;
 }
 
-function ShortcutChip({ icon: Icon, label }: ShortcutChipProps) {
+function ShortcutChip({ icon: Icon, label, onClick }: ShortcutChipProps) {
   return (
     <motion.button
       type="button"
@@ -14,6 +15,7 @@ function ShortcutChip({ icon: Icon, label }: ShortcutChipProps) {
       whileHover={{ scale: 1.05, borderColor: "#52525b" }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
+      onClick={onClick}
     >
       <motion.span
         style={{ display: "inline-flex" }}
