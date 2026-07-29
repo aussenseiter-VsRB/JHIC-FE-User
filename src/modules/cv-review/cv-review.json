@@ -1,56 +1,66 @@
 {
   "upload": {
     "title": "Review CV dengan AI",
-    "description": "Upload CV Anda dalam format PDF dan dapatkan analisis mendalam beserta saran perbaikan.",
+    "description": "Upload CV Anda dalam format PDF dan dapatkan analisis mendalam berbasis kriteria ATS & rekruter.",
     "dropzoneText": "Seret file CV ke sini",
     "browseText": "atau klik untuk memilih file",
-    "fileRestriction": "PDF, maksimal 5 MB",
+    "fileRestriction": "Format PDF, maksimal 5 MB",
     "selectButton": "Pilih File",
-    "analyzeButton": "Mulai Analisis",
+    "analyzeButton": "Mulai Analisis AI",
+    "errorFormat": "File harus berformat PDF (.pdf)",
+    "errorSize": "Ukuran file melebihi batas maksimal 5 MB",
     "guide": {
       "title": "Cara Menggunakan",
       "steps": [
         "Upload file CV Anda dalam format PDF",
-        "Klik tombol \"Mulai Analisis\" untuk memulai",
-        "Tunggu hingga proses analisis selesai",
-        "Lihat hasil review dan saran perbaikan"
+        "Klik tombol \"Mulai Analisis AI\" untuk memindai",
+        "Tunggu beberapa detik hingga pemindaian selesai",
+        "Pelajari skor, analisis ATS & saran perbaikan konkret"
       ],
       "checksTitle": "Yang Kami Analisis",
       "checks": [
-        "Kelengkapan bagian CV",
-        "Tata bahasa dan typo",
-        "Format dan tata letak",
-        "Kompatibilitas ATS"
+        "Kelengkapan bagian & struktur CV",
+        "Kesesuaian tata bahasa & kata kerja aktif",
+        "Konsistensi format & tata letak",
+        "Keterbacaan parser sistem ATS"
       ],
-      "tipsTitle": "Tips",
+      "tipsTitle": "Tips Hasil Maksimal",
       "tips": [
-        "Gunakan PDF dengan teks, bukan hasil scan",
-        "Pastikan file tidak lebih dari 5 MB",
-        "CV berbahasa Indonesia atau Inggris"
+        "Gunakan PDF berbasis teks (bukan scan gambar/foto)",
+        "Pastikan ukuran file tidak melebihi 5 MB",
+        "CV dapat berbahasa Indonesia maupun Inggris"
       ]
     }
   },
   "loading": {
-    "title": "Menganalisis CV Anda"
+    "title": "Menganalisis CV Anda",
+    "subStages": [
+      "Mengekstrak teks & mendeteksi struktur tata letak PDF...",
+      "Simulasi pemindaian parser sistem ATS...",
+      "Evaluasi tata bahasa, tenses & kata kerja aksi...",
+      "Mengkalkulasi skor dan menyusun contoh rekomendasi..."
+    ]
   },
   "result": {
-    "heading": "Hasil Review CV",
+    "heading": "Hasil Review & Audit CV",
     "scoreLabel": "Skor Keseluruhan",
     "atsLabel": "ATS Check",
-    "atsGood": "Baik",
-    "atsNeedsImprovement": "Perlu Perbaikan",
+    "atsGood": "Kompatibel ATS",
+    "atsNeedsImprovement": "Perlu Perbaikan ATS",
     "grammarLabel": "Isu Grammar",
-    "grammarCount": "ditemukan",
+    "grammarCount": "Isu Ditemukan",
     "formatLabel": "Format & Tata Letak",
     "quickStats": {
       "pages": "Halaman",
       "words": "Kata",
-      "lastUpdated": "Terakhir Diupdate"
+      "lastUpdated": "Tanggal Pindai"
     },
-    "strengths": "Kekuatan",
-    "weaknesses": "Kelemahan",
-    "suggestionsTitle": "Saran Perbaikan",
-    "improveButton": "Perbaiki dengan AI",
+    "strengths": "Kekuatan Utama",
+    "weaknesses": "Area Perbaikan",
+    "suggestionsTitle": "Rekomendasi & Saran Perbaikan",
+    "improveButton": "Perbaiki Otomatis dengan AI",
+    "copyButton": "Salin Ringkasan Audit",
+    "copiedText": "Tersalin ke Clipboard!",
     "uploadAgain": "Upload CV Lain"
   }
 }

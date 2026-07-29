@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import {
@@ -11,6 +12,9 @@ import {
   AlertTriangle,
   XCircle,
   Upload,
+  Copy,
+  Check,
+  Trophy,
 } from "lucide-react";
 import type { ReviewResult } from "../services/reviewService";
 import SuggestionList from "./SuggestionList";
@@ -35,6 +39,8 @@ interface ReviewDashboardProps {
     weaknesses: string;
     suggestionsTitle: string;
     improveButton: string;
+    copyButton?: string;
+    copiedText?: string;
     uploadAgain: string;
   };
   onUploadAgain: () => void;
@@ -63,17 +69,97 @@ const cardVariants: Variants = {
   }),
 };
 
+/* SVG Radial Score Gauge */
+function ScoreGauge({ score, color }: { score: number; color: string }) {
+  const radius = 64;
+  const strokeWidth = 10;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference - (score / 100) * circumference;
+
+  return (
+    <div className="review-score-gauge-container">
+      <svg className="review-score-gauge-svg" viewBox="0 0 160 160">
+        {/* Background Circle */}
+        <circle
+          cx="80"
+          cy="80"
+          r={radius}
+          stroke="rgba(255, 255, 255, 0.06)"
+          strokeWidth={strokeWidth}
+          fill="none"
+        />
+        {/* Animated Progress Circle */}
+        <motion.circle
+          cx="80"
+          cy="80"
+          r={radius}
+          stroke={color}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          initial={{ strokeDashoffset: circumference }}
+          animate={{ strokeDashoffset }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          strokeLinecap="round"
+          fill="none"
+          transform="rotate(-90 80 80)"
+        />
+      </svg>
+      <div className="review-score-gauge-center">
+        <span className="review-score-number" style={{ color }}>
+          {score}
+        </span>
+        <span className="review-score-max">/100</span>
+      </div>
+    </div>
+  );
+}
+
 function ReviewDashboard({ result, data, onUploadAgain }: ReviewDashboardProps) {
   const r = result;
   const scoreColor = getScoreColor(r.score);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopySummary = useCallback(() => {
+    const summaryText = `[Hasil Audit CV - Skor: ${r.score}/100]
+Ringkasan: ${r.summary}
+
+Kekuatan Utama:
+${r.strengths.map((s) => `- ${s}`).join("\n")}
+
+Area Perbaikan:
+${r.weaknesses.map((w) => `- ${w}`).join("\n")}
+
+Status ATS: ${r.ats.status === "good" ? "Kompatibel" : "Perlu Perbaikan"}
+Jumlah Isu Grammar: ${r.grammar.issues}`;
+
+    navigator.clipboard.writeText(summaryText);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2500);
+  }, [r]);
 
   return (
     <div className="review-dashboard">
       <div className="review-dashboard-header">
-        <h1 className="review-heading">{data.heading}</h1>
+        <div>
+          <h1 className="review-heading">{data.heading}</h1>
+          <p className="review-subheading">
+            Analisis kecocokan CV Anda terhadap standar ATS dan preferensi rekruter.
+          </p>
+        </div>
+        <div className="review-header-actions">
+          <button
+            type="button"
+            className="review-copy-btn"
+            onClick={handleCopySummary}
+          >
+            {isCopied ? <Check size={16} /> : <Copy size={16} />}
+            <span>{isCopied ? data.copiedText || "Tersalin!" : data.copyButton || "Salin Audit"}</span>
+          </button>
+        </div>
       </div>
 
       <div className="review-grid">
+        {/* Main Score Radial Card */}
         <motion.div
           className="review-card review-card--score"
           custom={0}
@@ -81,11 +167,22 @@ function ReviewDashboard({ result, data, onUploadAgain }: ReviewDashboardProps) 
           initial="hidden"
           animate="visible"
         >
-          <div className="review-score-number" style={{ color: scoreColor }}>
-            {r.score}
+          <div className="review-score-layout">
+            <ScoreGauge score={r.score} color={scoreColor} />
+            <div className="review-score-details">
+              <div className="review-score-badge-row">
+                <span className="review-score-label-tag" style={{ color: scoreColor, borderColor: `${scoreColor}40`, background: `${scoreColor}15` }}>
+                  {getScoreLabel(r.score)}
+                </span>
+                <span className="review-percentile-badge">
+                  <Trophy size={13} />
+                  <span>Top 15% Candidate CV</span>
+                </span>
+              </div>
+              <p className="review-score-summary">{r.summary}</p>
+            </div>
           </div>
-          <div className="review-score-label">{getScoreLabel(r.score)}</div>
-          <p className="review-score-summary">{r.summary}</p>
+
           <div className="review-strengths-weaknesses">
             <div className="review-sw-section">
               <h4 className="review-sw-title review-sw-title--strength">
@@ -97,7 +194,7 @@ function ReviewDashboard({ result, data, onUploadAgain }: ReviewDashboardProps) 
                     key={i}
                     className="review-sw-item review-sw-item--strength"
                   >
-                    <CheckCircle2 size={14} />
+                    <CheckCircle2 size={15} />
                     <span>{s}</span>
                   </li>
                 ))}
@@ -113,7 +210,7 @@ function ReviewDashboard({ result, data, onUploadAgain }: ReviewDashboardProps) 
                     key={i}
                     className="review-sw-item review-sw-item--weakness"
                   >
-                    <AlertTriangle size={14} />
+                    <AlertTriangle size={15} />
                     <span>{w}</span>
                   </li>
                 ))}
@@ -122,6 +219,7 @@ function ReviewDashboard({ result, data, onUploadAgain }: ReviewDashboardProps) 
           </div>
         </motion.div>
 
+        {/* Format Card */}
         <motion.div
           className="review-card review-card--medium"
           custom={1}
@@ -153,6 +251,7 @@ function ReviewDashboard({ result, data, onUploadAgain }: ReviewDashboardProps) 
           </ul>
         </motion.div>
 
+        {/* ATS Card */}
         <motion.div
           className="review-card review-card--small"
           custom={2}
@@ -183,6 +282,7 @@ function ReviewDashboard({ result, data, onUploadAgain }: ReviewDashboardProps) 
           </div>
         </motion.div>
 
+        {/* Grammar Card */}
         <motion.div
           className="review-card review-card--small"
           custom={3}
@@ -202,6 +302,7 @@ function ReviewDashboard({ result, data, onUploadAgain }: ReviewDashboardProps) 
           </div>
         </motion.div>
 
+        {/* Quick Stats Bar */}
         <motion.div
           className="review-card review-card--full"
           custom={4}

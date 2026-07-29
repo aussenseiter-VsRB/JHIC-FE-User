@@ -34,7 +34,7 @@ function CvReview() {
   const [progress, setProgress] = useState(0);
   const intervalsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  const handleFileSelect = useCallback((f: File) => {
+  const handleFileSelect = useCallback((f: File | null) => {
     setFile(f);
   }, []);
 
@@ -128,6 +128,7 @@ function CvReview() {
               stages={LOADING_STAGES}
               currentStage={currentStage}
               progress={progress}
+              subStages={data.loading.subStages}
             />
           </motion.div>
         )}

@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback } from "react";
-import { motion } from "framer-motion";
-import { Upload, FileText } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Upload, FileText, X, AlertCircle, CheckCircle } from "lucide-react";
 
 interface UploadFormProps {
   data: {
@@ -11,11 +11,15 @@ interface UploadFormProps {
     fileRestriction: string;
     selectButton: string;
     analyzeButton: string;
+    errorFormat?: string;
+    errorSize?: string;
   };
   file: File | null;
-  onFileSelect: (file: File) => void;
+  onFileSelect: (file: File | null) => void;
   onStartAnalysis: () => void;
 }
+
+const MAX_FILE_SIZE_MB = 5;
 
 function UploadForm({
   data,
@@ -25,6 +29,25 @@ function UploadForm({
 }: UploadFormProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const validateAndSetFile = useCallback(
+    (f: File) => {
+      setErrorMsg(null);
+      if (f.type !== "application/pdf" && !f.name.toLowerCase().endsWith(".pdf")) {
+        setErrorMsg(data.errorFormat || "File harus berformat PDF (.pdf)");
+        return;
+      }
+      if (f.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+        setErrorMsg(
+          data.errorSize || `Ukuran file melebihi batas maksimal ${MAX_FILE_SIZE_MB} MB`,
+        );
+        return;
+      }
+      onFileSelect(f);
+    },
+    [data.errorFormat, data.errorSize, onFileSelect],
+  );
 
   const handleClick = useCallback(() => {
     inputRef.current?.click();
@@ -33,11 +56,13 @@ function UploadForm({
   const handleFileChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const f = e.target.files?.[0];
-      if (f && f.type === "application/pdf") {
-        onFileSelect(f);
+      if (f) {
+        validateAndSetFile(f);
       }
+      // Reset input value to allow selecting same file again if needed
+      e.target.value = "";
     },
-    [onFileSelect],
+    [validateAndSetFile],
   );
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
@@ -54,9 +79,18 @@ function UploadForm({
       e.preventDefault();
       setIsDragging(false);
       const f = e.dataTransfer.files[0];
-      if (f && f.type === "application/pdf") {
-        onFileSelect(f);
+      if (f) {
+        validateAndSetFile(f);
       }
+    },
+    [validateAndSetFile],
+  );
+
+  const handleRemoveFile = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      onFileSelect(null);
+      setErrorMsg(null);
     },
     [onFileSelect],
   );
@@ -71,12 +105,26 @@ function UploadForm({
         <p className="upload-form-desc">{data.description}</p>
       </div>
 
+      <AnimatePresence>
+        {errorMsg && (
+          <motion.div
+            className="upload-error-alert"
+            initial={{ opacity: 0, y: -8, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: "auto" }}
+            exit={{ opacity: 0, y: -8, height: 0 }}
+          >
+            <AlertCircle size={18} className="upload-error-icon" />
+            <span>{errorMsg}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div
         className={`upload-dropzone${isDragging ? " upload-dropzone--active" : ""}${file ? " upload-dropzone--filled" : ""}`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onClick={handleClick}
+        onClick={!file ? handleClick : undefined}
       >
         <input
           ref={inputRef}
@@ -87,12 +135,33 @@ function UploadForm({
         />
 
         {file ? (
-          <div className="upload-file-selected">
-            <FileText size={24} />
-            <span className="upload-file-name">{file.name}</span>
-            <span className="upload-file-size">
-              {(file.size / 1024 / 1024).toFixed(1)} MB
-            </span>
+          <div className="upload-file-selected-card">
+            <div className="upload-file-info">
+              <div className="upload-file-badge">
+                <FileText size={24} />
+              </div>
+              <div className="upload-file-meta">
+                <span className="upload-file-name" title={file.name}>
+                  {file.name}
+                </span>
+                <span className="upload-file-size">
+                  {(file.size / 1024 / 1024).toFixed(2)} MB • PDF Document
+                </span>
+              </div>
+            </div>
+            <div className="upload-file-status">
+              <span className="upload-ready-badge">
+                <CheckCircle size={14} /> Siap Dianalisis
+              </span>
+              <button
+                type="button"
+                className="upload-remove-btn"
+                onClick={handleRemoveFile}
+                title="Hapus File"
+              >
+                <X size={16} />
+              </button>
+            </div>
           </div>
         ) : (
           <>

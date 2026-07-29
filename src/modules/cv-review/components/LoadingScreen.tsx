@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { FileText } from "lucide-react";
+import { FileText, Sparkles, CheckCircle2 } from "lucide-react";
 
 interface LoadingScreenProps {
   title: string;
   stages: string[];
   currentStage: number;
   progress: number;
+  subStages?: string[];
 }
 
 function LoadingScreen({
@@ -13,18 +14,57 @@ function LoadingScreen({
   stages,
   currentStage,
   progress,
+  subStages,
 }: LoadingScreenProps) {
+  const currentSubStageText =
+    subStages && subStages[currentStage]
+      ? subStages[currentStage]
+      : "Memproses analisis mendalam...";
+
   return (
     <div className="loading-screen">
-      <motion.div
-        className="loading-icon"
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <FileText size={40} />
-      </motion.div>
+      {/* Animated Document Scanner Graphic */}
+      <div className="loading-scanner-container">
+        <motion.div
+          className="loading-doc-card"
+          animate={{ scale: [1, 1.02, 1] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div className="loading-doc-header">
+            <FileText size={24} className="loading-doc-icon" />
+            <div className="loading-doc-lines">
+              <div className="loading-doc-line loading-doc-line--short" />
+              <div className="loading-doc-line loading-doc-line--micro" />
+            </div>
+          </div>
+          <div className="loading-doc-body">
+            <div className="loading-doc-line" />
+            <div className="loading-doc-line" />
+            <div className="loading-doc-line loading-doc-line--short" />
+            <div className="loading-doc-line" />
+          </div>
+          {/* Animated Laser Beam */}
+          <motion.div
+            className="loading-scanner-beam"
+            animate={{ top: ["5%", "90%", "5%"] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
+      </div>
 
-      <h2 className="loading-title">{title}</h2>
+      <div className="loading-text-group">
+        <h2 className="loading-title">{title}</h2>
+        <motion.p
+          key={currentStage}
+          className="loading-substage-tip"
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Sparkles size={14} />
+          <span>{currentSubStageText}</span>
+        </motion.p>
+      </div>
 
       <div className="loading-stages">
         {stages.map((stage, i) => (
@@ -34,7 +74,7 @@ function LoadingScreen({
           >
             <div className="loading-stage-dot">
               {i < currentStage ? (
-                <span className="loading-stage-check">✓</span>
+                <CheckCircle2 size={16} className="loading-stage-check-icon" />
               ) : (
                 <span
                   className={`loading-stage-num${i === currentStage ? " loading-stage-num--pulse" : ""}`}
@@ -48,16 +88,17 @@ function LoadingScreen({
         ))}
       </div>
 
-      <div className="loading-bar-track">
-        <motion.div
-          className="loading-bar-fill"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-        />
+      <div className="loading-progress-section">
+        <div className="loading-bar-track">
+          <motion.div
+            className="loading-bar-fill"
+            initial={{ width: 0 }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          />
+        </div>
+        <p className="loading-percent">{progress}% Selesai</p>
       </div>
-
-      <p className="loading-percent">{progress}%</p>
     </div>
   );
 }
