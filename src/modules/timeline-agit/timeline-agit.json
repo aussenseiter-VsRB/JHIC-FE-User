@@ -1,0 +1,79 @@
+{
+  "title": "Timeline Perjalanan Kelas 12",
+  "subtitle": "Panduan lengkap kegiatan selama semester 1 hingga kelulusan",
+  "phases": [
+    {
+      "period": "Semester 1",
+      "icon": "BookOpen",
+      "items": [
+        {
+          "title": "Masa Pengenalan Lingkungan Sekolah",
+          "desc": "Pengenalan program AGIT, visi misi sekolah, dan tata tertib bagi siswa baru kelas 12.",
+          "date": "Juli 2026"
+        },
+        {
+          "title": "Pendalaman Materi Belajar",
+          "desc": "Fokus pada materi pelajaran inti, persiapan menghadapi ujian, dan pengayaan kompetensi.",
+          "date": "Juli - September 2026"
+        },
+        {
+          "title": "Ujian Tengah Semester",
+          "desc": "Evaluasi pemahaman materi semester 1 melalui ujian tertulis dan praktik.",
+          "date": "September 2026"
+        },
+        {
+          "title": "Ujian Akhir Semester 1",
+          "desc": "Penilaian akhir semester 1 sebagai dasar penentuan nilai rapor.",
+          "date": "Desember 2026"
+        }
+      ]
+    },
+    {
+      "period": "Semester 2",
+      "icon": "GraduationCap",
+      "items": [
+        {
+          "title": "Pendalaman Materi Semester 2",
+          "desc": "Lanjutan materi pelajaran, fokus pada persiapan ujian sekolah dan ujian nasional.",
+          "date": "Januari - Maret 2027"
+        },
+        {
+          "title": "Ujian Tengah Semester 2",
+          "desc": "Evaluasi tengah semester untuk mengukur pemahaman materi semester 2.",
+          "date": "Maret 2027"
+        },
+        {
+          "title": "Ujian Sekolah",
+          "desc": "Ujian yang diselenggarakan oleh sekolah untuk mengukur pencapaian kompetensi kelulusan.",
+          "date": "April 2027"
+        },
+        {
+          "title": "Ujian Nasional / Ujian Akhir",
+          "desc": "Ujian akhir sebagai syarat kelulusan dan penentuan jenjang pendidikan selanjutnya.",
+          "date": "Mei 2027"
+        }
+      ]
+    },
+    {
+      "period": "Masa Kelulusan",
+      "icon": "Award",
+      "items": [
+        {
+          "title": "Pengumuman Kelulusan",
+          "desc": "Pengumuman resmi kelulusan siswa kelas 12 berdasarkan hasil evaluasi akhir.",
+          "date": "Mei 2027"
+        },
+        {
+          "title": "Pelepasan dan Perpisahan",
+          "desc": "Acara pelepasan siswa kelas 12 yang digelar oleh sekolah sebagai bentuk apresiasi.",
+          "date": "Juni 2027"
+        },
+        {
+          "title": "Pembagian Ijazah",
+          "desc": "Pengambilan ijazah dan dokumen kelulusan lainnya sebagai tanda tamat belajar.",
+          "date": "Juni 2027"
+        }
+      ]
+    }
+  ]
+}
