@@ -41,6 +41,7 @@ const fadeUp: Variants = {
 
 function Nexxa() {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isSending, setIsSending] = useState(false);
   const { resetKey } = useOutletContext<ChatContext>();
 
   useEffect(() => {
@@ -48,13 +49,15 @@ function Nexxa() {
   }, [resetKey]);
 
   function handleSend(text: string) {
+    setIsSending(true);
     setMessages((prev) => [...prev, { role: "user", content: text }]);
     setTimeout(() => {
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: `Maket balasan untuk: "${text}"` },
       ]);
-    }, 600);
+      setIsSending(false);
+    }, 1200);
   }
 
   if (messages.length === 0) {
@@ -75,6 +78,9 @@ function Nexxa() {
               placeholder={data.inputPlaceholder}
               models={data.models}
               onSend={handleSend}
+              isSending={isSending}
+              maxChars={data.maxChars}
+              placeholderCycle={data.placeholderCycle}
             />
           </motion.div>
           <motion.div className="shortcut-chips" variants={fadeUp}>
@@ -103,6 +109,9 @@ function Nexxa() {
           placeholder={data.inputPlaceholder}
           models={data.models}
           onSend={handleSend}
+          isSending={isSending}
+          maxChars={data.maxChars}
+          placeholderCycle={data.placeholderCycle}
         />
       </div>
     </>

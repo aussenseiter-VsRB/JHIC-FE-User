@@ -3,6 +3,12 @@
   "userName": "Pengguna",
   "newChat": "Konsultasi Baru",
   "inputPlaceholder": "Ada yang bisa saya bantu?",
+  "maxChars": 2000,
+  "placeholderCycle": [
+    "Ada yang bisa saya bantu?",
+    "Tanyakan tentang PKM...",
+    "Cari referensi skripsi..."
+  ],
   "navItems": ["Cari", "Konsultasi"],
   "alatTitle": "Alat",
   "alatItems": [
