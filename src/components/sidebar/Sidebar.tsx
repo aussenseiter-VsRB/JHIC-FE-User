@@ -11,7 +11,7 @@ import {
   CalendarClock,
   Settings,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import RecentItem from "./RecentItem";
 import data from "../../modules/nexxa/nexxa.json";
 
@@ -76,6 +76,7 @@ function NavItem({ Icon, label, route, collapsed }: NavItemProps) {
 }
 
 function Sidebar({ collapsed, onToggle, onResetChat }: SidebarProps) {
+  const navigate = useNavigate();
   return (
     <aside className={`sidebar${collapsed ? " sidebar--collapsed" : ""}`}>
       <div className="sidebar-inner">
@@ -121,7 +122,7 @@ function Sidebar({ collapsed, onToggle, onResetChat }: SidebarProps) {
             className="new-chat-btn"
             whileHover="hover"
             whileTap={{ scale: 0.98 }}
-            onClick={onResetChat}
+            onClick={() => { onResetChat(); navigate("/"); }}
           >
             <motion.span
               style={{ display: "inline-flex" }}
