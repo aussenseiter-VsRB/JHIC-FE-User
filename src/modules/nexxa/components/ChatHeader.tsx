@@ -13,7 +13,7 @@ function ChatHeader() {
         <motion.button
           type="button"
           className="icon-btn"
-          aria-label="History"
+          aria-label="Riwayat"
           whileHover={{ scale: 1.15, rotate: -5 }}
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.15 }}
@@ -23,7 +23,7 @@ function ChatHeader() {
         <motion.button
           type="button"
           className="icon-btn"
-          aria-label="Settings"
+          aria-label="Pengaturan"
           whileHover={{ scale: 1.15, rotate: 45 }}
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.15 }}

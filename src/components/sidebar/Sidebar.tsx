@@ -6,7 +6,9 @@ import {
   Plus,
   Search,
   MessageSquare,
-  Compass,
+  LayoutDashboard,
+  FileText,
+  CalendarClock,
   Settings,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
@@ -26,13 +28,19 @@ interface NavItemProps {
 }
 
 const navIconMap: Record<string, typeof Search> = {
-  Search,
-  Chats: MessageSquare,
+  Cari: Search,
+  Konsultasi: MessageSquare,
 };
 
 const navRouteMap: Record<string, string> = {
-  Search: "/search",
-  Chats: "/",
+  Cari: "/search",
+  Konsultasi: "/",
+};
+
+const alatIconMap: Record<string, typeof Search> = {
+  "Dashboard PKL": LayoutDashboard,
+  "CV Review": FileText,
+  "Timeline Agit": CalendarClock,
 };
 
 const iconScale: Variants = {
@@ -91,7 +99,7 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
             type="button"
             className="icon-btn sidebar-collapse-btn"
             onClick={onToggle}
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            aria-label={collapsed ? "Perluas sidebar" : "Ciutkan sidebar"}
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
@@ -144,27 +152,25 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
         {!collapsed && (
           <>
             <div className="sidebar-section">
-              <div className="sidebar-section-title">{data.gptsTitle}</div>
-              <motion.button
-                type="button"
-                className="nav-item"
-                whileHover="hover"
-                whileTap={{ scale: 0.98 }}
-              >
-                <motion.span
-                  style={{ display: "inline-flex" }}
-                  variants={iconScale}
-                >
-                  <Compass size={18} />
-                </motion.span>
-                <span>{data.exploreGpts}</span>
-              </motion.button>
+              <div className="sidebar-section-title">{data.alatTitle}</div>
+              {data.alatItems.map((item) => {
+                const Icon = alatIconMap[item.label];
+                return (
+                  <NavItem
+                    key={item.label}
+                    Icon={Icon}
+                    label={item.label}
+                    route={item.route}
+                    collapsed={collapsed}
+                  />
+                );
+              })}
             </div>
 
             <div className="sidebar-section">
               <div className="sidebar-section-title">{data.recentsTitle}</div>
               {data.recents.length === 0 ? (
-                <div className="sidebar-empty">No recent chats</div>
+                <div className="sidebar-empty">Tidak ada konsultasi terbaru</div>
               ) : (
                 data.recents.map((recent) => (
                   <RecentItem key={recent} label={recent} />
@@ -191,7 +197,7 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
             <motion.button
               type="button"
               className="icon-btn"
-              aria-label="Settings"
+              aria-label="Pengaturan"
               whileHover={{ scale: 1.15, rotate: 45 }}
               whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.2, ease: "easeOut" }}

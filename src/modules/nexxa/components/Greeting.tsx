@@ -6,14 +6,14 @@ interface GreetingProps {
 
 function getTimeOfDay(): string {
   const hour = new Date().getHours();
-  if (hour < 12) return "Morning";
-  if (hour < 17) return "Afternoon";
-  if (hour < 21) return "Evening";
-  return "Night";
+  if (hour < 12) return "Pagi";
+  if (hour < 17) return "Siang";
+  if (hour < 21) return "Sore";
+  return "Malam";
 }
 
 function Greeting({ name }: GreetingProps) {
-  const text = `Good ${getTimeOfDay()}, ${name}`;
+  const text = `Selamat ${getTimeOfDay()}, ${name}`;
 
   return (
     <div className="greeting">

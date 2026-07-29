@@ -9,10 +9,10 @@ import data from "./nexxa.json";
 import "./css/nexxa.css";
 
 const shortcutIconMap: Record<string, typeof Image> = {
-  "Create an Image": Image,
-  "Smart Writing": PenLine,
-  "AI Coding": Terminal,
-  "Deep Research": Search,
+  "Buat Gambar": Image,
+  "Tulis Cerdas": PenLine,
+  "Koding AI": Terminal,
+  "Riset Mendalam": Search,
 };
 
 const stagger: Variants = {

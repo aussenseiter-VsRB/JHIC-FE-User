@@ -1,13 +1,17 @@
 {
   "appName": "Nexxa AI",
-  "userName": "User",
-  "newChat": "New chat",
-  "inputPlaceholder": "How can I help you today?",
-  "navItems": ["Search", "Chats"],
-  "gptsTitle": "GPTs",
-  "exploreGpts": "Explore GPTs",
-  "recentsTitle": "Recents",
-  "recents": ["Marketing Campaign Idea", "Cover Image Modification", "Love Notes Idea"],
-  "shortcuts": ["Create an Image", "Smart Writing", "AI Coding", "Deep Research"],
+  "userName": "Pengguna",
+  "newChat": "Konsultasi Baru",
+  "inputPlaceholder": "Ada yang bisa saya bantu?",
+  "navItems": ["Cari", "Konsultasi"],
+  "alatTitle": "Alat",
+  "alatItems": [
+    { "label": "Dashboard PKL", "icon": "LayoutDashboard", "route": "/dashboard-pkl" },
+    { "label": "CV Review", "icon": "FileText", "route": "/cv-review" },
+    { "label": "Timeline Agit", "icon": "CalendarClock", "route": "/timeline-agit" }
+  ],
+  "recentsTitle": "Terbaru",
+  "recents": ["Ide Kampanye Marketing", "Modifikasi Gambar Sampul", "Ide Catatan Cinta"],
+  "shortcuts": ["Buat Gambar", "Tulis Cerdas", "Koding AI", "Riset Mendalam"],
   "models": ["Ling Flash", "Quantum 3 Turbo", "Quantum 3 Pro"]
 }

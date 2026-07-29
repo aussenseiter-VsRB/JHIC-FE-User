@@ -42,7 +42,7 @@ function ChatInput({ placeholder, models }: ChatInputProps) {
             <motion.button
               type="button"
               className="input-icon-btn"
-              aria-label="Attach file"
+              aria-label="Lampirkan file"
               whileHover={{ scale: 1.1, color: "#a1a1aa" }}
               whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.15 }}
@@ -99,7 +99,7 @@ function ChatInput({ placeholder, models }: ChatInputProps) {
             <motion.button
               type="button"
               className="input-icon-btn"
-              aria-label="Voice input"
+              aria-label="Input suara"
               whileHover={{ scale: 1.1, color: "#a1a1aa" }}
               whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.15 }}
@@ -109,7 +109,7 @@ function ChatInput({ placeholder, models }: ChatInputProps) {
             <motion.button
               type="button"
               className={`submit-btn${value.trim() ? " submit-btn--active" : ""}`}
-              aria-label="Send message"
+              aria-label="Kirim pesan"
               whileHover={value.trim() ? { scale: 1.1 } : undefined}
               whileTap={value.trim() ? { scale: 0.9 } : undefined}
               transition={{ duration: 0.15 }}

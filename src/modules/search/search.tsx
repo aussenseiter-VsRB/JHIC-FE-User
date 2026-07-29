@@ -7,7 +7,7 @@ import "./css/search.css";
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return date.toLocaleDateString("en-US", {
+  return date.toLocaleDateString("id-ID", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -79,7 +79,7 @@ function Search() {
         animate="visible"
       >
         <motion.h1 className="search-title" variants={headerItem}>
-          Search
+          Cari
         </motion.h1>
 
         <motion.div className="search-input-wrapper" variants={headerItem}>
@@ -94,7 +94,7 @@ function Search() {
             ref={inputRef}
             type="text"
             className="search-input"
-            placeholder="Search chat history..."
+            placeholder="Cari riwayat konsultasi..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setFocused(true)}
@@ -107,7 +107,7 @@ function Search() {
                 type="button"
                 className="search-clear-btn"
                 onClick={() => setQuery("")}
-                aria-label="Clear search"
+                aria-label="Hapus pencarian"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
@@ -125,7 +125,7 @@ function Search() {
           className="search-result-count"
           variants={headerItem}
         >
-          {filtered.length} of {data.chats.length} conversations
+          {filtered.length} dari {data.chats.length} konsultasi
         </motion.p>
       </motion.div>
 
@@ -146,8 +146,8 @@ function Search() {
               transition={{ duration: 0.2 }}
             >
               <SearchIcon size={32} />
-              <p>No conversations found</p>
-              <span>Try a different search term</span>
+              <p>Konsultasi tidak ditemukan</p>
+              <span>Coba kata kunci lainnya</span>
             </motion.div>
           ) : (
             filtered.map((chat) => (
@@ -180,7 +180,7 @@ function Search() {
                   <motion.span style={{ display: "inline-flex" }} variants={iconHover}>
                     <MessageSquare size={12} />
                   </motion.span>
-                  <span>{chat.messages} messages</span>
+                  <span>{chat.messages} pesan</span>
                 </div>
               </motion.button>
             ))
