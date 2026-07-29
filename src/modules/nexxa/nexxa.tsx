@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Image, PenLine, Terminal, Search } from "lucide-react";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "../../components/sidebar/Sidebar";
 import ChatHeader from "./components/ChatHeader";
 import Greeting from "./components/Greeting";
 import ChatInput from "./components/ChatInput";

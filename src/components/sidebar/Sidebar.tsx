@@ -13,7 +13,7 @@ import {
 
 import RecentItem from "./RecentItem";
 import ProjectItem from "./ProjectItem";
-import data from "../nexxa.json";
+import data from "../../modules/nexxa/nexxa.json";
 
 interface SidebarProps {
   collapsed: boolean;
