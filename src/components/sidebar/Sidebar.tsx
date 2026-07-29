@@ -17,8 +17,10 @@ import data from "../../modules/nexxa/nexxa.json";
 
 interface SidebarProps {
   collapsed: boolean;
+  mobileOpen: boolean;
   onToggle: () => void;
   onResetChat: () => void;
+  onMobileClose: () => void;
 }
 
 interface NavItemProps {
@@ -26,6 +28,7 @@ interface NavItemProps {
   label: string;
   route: string;
   collapsed: boolean;
+  onMobileClose?: () => void;
 }
 
 const navIconMap: Record<string, typeof Search> = {
@@ -49,7 +52,7 @@ const iconScale: Variants = {
   hover: { scale: 1.2, rotate: -10, transition: { duration: 0.2, ease: "easeOut" } },
 };
 
-function NavItem({ Icon, label, route, collapsed }: NavItemProps) {
+function NavItem({ Icon, label, route, collapsed, onMobileClose }: NavItemProps) {
   const controls = useAnimation();
 
   return (
@@ -59,6 +62,7 @@ function NavItem({ Icon, label, route, collapsed }: NavItemProps) {
       className={({ isActive }) =>
         `nav-item${isActive ? " active" : ""}`
       }
+      onClick={onMobileClose}
       onMouseEnter={() => controls.start("hover")}
       onMouseLeave={() => controls.start("initial")}
     >
@@ -75,10 +79,10 @@ function NavItem({ Icon, label, route, collapsed }: NavItemProps) {
   );
 }
 
-function Sidebar({ collapsed, onToggle, onResetChat }: SidebarProps) {
+function Sidebar({ collapsed, mobileOpen, onToggle, onResetChat, onMobileClose }: SidebarProps) {
   const navigate = useNavigate();
   return (
-    <aside className={`sidebar${collapsed ? " sidebar--collapsed" : ""}`}>
+    <aside className={`sidebar${collapsed ? " sidebar--collapsed" : ""}${mobileOpen ? " sidebar--mobile-open" : ""}`}>
       <div className="sidebar-inner">
         <div className="sidebar-header">
           {!collapsed && (
@@ -122,7 +126,7 @@ function Sidebar({ collapsed, onToggle, onResetChat }: SidebarProps) {
             className="new-chat-btn"
             whileHover="hover"
             whileTap={{ scale: 0.98 }}
-            onClick={() => { onResetChat(); navigate("/"); }}
+            onClick={() => { onResetChat(); navigate("/"); onMobileClose(); }}
           >
             <motion.span
               style={{ display: "inline-flex" }}
@@ -147,6 +151,7 @@ function Sidebar({ collapsed, onToggle, onResetChat }: SidebarProps) {
                 label={label}
                 route={route}
                 collapsed={collapsed}
+                onMobileClose={onMobileClose}
               />
             );
           })}
@@ -165,6 +170,7 @@ function Sidebar({ collapsed, onToggle, onResetChat }: SidebarProps) {
                     label={item.label}
                     route={item.route}
                     collapsed={collapsed}
+                    onMobileClose={onMobileClose}
                   />
                 );
               })}
@@ -176,7 +182,7 @@ function Sidebar({ collapsed, onToggle, onResetChat }: SidebarProps) {
                 <div className="sidebar-empty">Tidak ada konsultasi terbaru</div>
               ) : (
                 data.recents.map((recent) => (
-                  <RecentItem key={recent} label={recent} />
+                  <RecentItem key={recent} label={recent} onMobileClose={onMobileClose} />
                 ))
               )}
             </div>
@@ -199,7 +205,7 @@ function Sidebar({ collapsed, onToggle, onResetChat }: SidebarProps) {
             </div>
             <motion.button
               type="button"
-              className="icon-btn"
+              className="icon-btn icon-btn--nobg"
               aria-label="Pengaturan"
               whileHover={{ scale: 1.15, rotate: 45 }}
               whileTap={{ scale: 0.9 }}

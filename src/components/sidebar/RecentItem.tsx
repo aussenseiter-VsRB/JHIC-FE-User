@@ -4,18 +4,20 @@ import { MessageSquare } from "lucide-react";
 
 interface RecentItemProps {
   label: string;
+  onMobileClose?: () => void;
 }
 
 const iconBounce: Variants = {
   hover: { scale: 1.15, rotate: -10, transition: { duration: 0.2, ease: "easeOut" } },
 };
 
-function RecentItem({ label }: RecentItemProps) {
+function RecentItem({ label, onMobileClose }: RecentItemProps) {
   return (
     <motion.button
       type="button"
       className="recent-item"
       title={label}
+      onClick={onMobileClose}
       whileHover="hover"
       whileTap={{ scale: 0.98 }}
     >

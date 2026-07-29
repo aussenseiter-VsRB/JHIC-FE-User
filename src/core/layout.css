@@ -240,6 +240,14 @@
   color: #e8e8ea;
 }
 
+.icon-btn--nobg {
+  transition: color 0.15s;
+}
+
+.icon-btn--nobg:hover {
+  background: transparent;
+}
+
 /* ── Scrollbar ── */
 .sidebar-inner::-webkit-scrollbar {
   width: 4px;
@@ -258,7 +266,9 @@
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
     width: 260px;
     min-width: 260px;
     z-index: 100;
@@ -266,9 +276,36 @@
     transition: transform 0.2s;
   }
 
-  .sidebar--collapsed {
+  .sidebar--mobile-open {
     transform: translateX(0);
-    width: 260px;
-    min-width: 260px;
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+  }
+
+  .mobile-menu-btn {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid #27272a;
+    background: #141416;
+    color: #a1a1aa;
+    cursor: pointer;
+  }
+
+  .mobile-menu-btn:hover {
+    background: #1e1e20;
+    color: #e8e8ea;
   }
 }
