@@ -1,11 +1,13 @@
 import { useState, useCallback, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar/Sidebar";
+import SettingsModal from "../components/settings/SettingsModal";
 import { Menu } from "lucide-react";
 import "./layout.css";
 
 export interface ChatContext {
   resetKey: number;
+  onOpenSettings: () => void;
 }
 
 function Layout() {
@@ -13,6 +15,7 @@ function Layout() {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [resetKey, setResetKey] = useState(0);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
@@ -43,6 +46,14 @@ function Layout() {
     setMobileSidebarOpen(false);
   }, []);
 
+  const handleOpenSettings = useCallback(() => {
+    setSettingsOpen(true);
+  }, []);
+
+  const handleCloseSettings = useCallback(() => {
+    setSettingsOpen(false);
+  }, []);
+
   return (
     <div className="app-layout">
       <Sidebar
@@ -51,6 +62,7 @@ function Layout() {
         onToggle={handleToggleSidebar}
         onResetChat={handleResetChat}
         onMobileClose={handleMobileClose}
+        onOpenSettings={handleOpenSettings}
       />
       {isMobile && mobileSidebarOpen && (
         <div className="sidebar-backdrop" onClick={handleMobileClose} />
@@ -66,8 +78,12 @@ function Layout() {
         </button>
       )}
       <main className="main-content">
-        <Outlet context={{ resetKey } satisfies ChatContext} />
+        <Outlet context={{ resetKey, onOpenSettings: handleOpenSettings } satisfies ChatContext} />
       </main>
+      <SettingsModal
+        open={settingsOpen}
+        onClose={handleCloseSettings}
+      />
     </div>
   );
 }

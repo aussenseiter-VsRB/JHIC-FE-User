@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
 import { History, Settings } from "lucide-react";
 
-function ChatHeader() {
+interface ChatHeaderProps {
+  onOpenSettings?: () => void;
+}
+
+function ChatHeader({ onOpenSettings }: ChatHeaderProps) {
   return (
     <header className="chat-header">
       <motion.div
@@ -27,6 +31,7 @@ function ChatHeader() {
           whileHover={{ scale: 1.15, rotate: 45 }}
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.15 }}
+          onClick={onOpenSettings}
         >
           <Settings size={18} />
         </motion.button>

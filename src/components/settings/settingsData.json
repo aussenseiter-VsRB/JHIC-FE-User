@@ -1,0 +1,27 @@
+{
+  "title": "Pengaturan",
+  "closeAriaLabel": "Tutup pengaturan",
+  "sidebar": {
+    "akun": { "label": "Akun" },
+    "tampilan": { "label": "Tampilan" }
+  },
+  "akun": {
+    "username": { "label": "Username" },
+    "id": { "label": "ID" },
+    "namaAsli": { "label": "Nama Asli" },
+    "keluar": "Keluar"
+  },
+  "tampilan": {
+    "theme": { "label": "Tema" },
+    "themeOptions": [
+      { "value": "dark", "label": "Gelap" },
+      { "value": "light", "label": "Terang" },
+      { "value": "system", "label": "Bawaan Device" }
+    ],
+    "font": { "label": "Font" },
+    "fontOptions": [
+      { "value": "sans-serif", "label": "Sans-serif" },
+      { "value": "serif", "label": "Serif" }
+    ]
+  }
+}

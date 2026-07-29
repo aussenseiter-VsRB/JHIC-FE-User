@@ -42,7 +42,7 @@ const fadeUp: Variants = {
 function Nexxa() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isSending, setIsSending] = useState(false);
-  const { resetKey } = useOutletContext<ChatContext>();
+  const { resetKey, onOpenSettings } = useOutletContext<ChatContext>();
 
   useEffect(() => {
     setMessages([]);
@@ -63,7 +63,7 @@ function Nexxa() {
   if (messages.length === 0) {
     return (
       <>
-        <ChatHeader />
+        <ChatHeader onOpenSettings={onOpenSettings} />
         <motion.div
           className="main-center"
           variants={stagger}

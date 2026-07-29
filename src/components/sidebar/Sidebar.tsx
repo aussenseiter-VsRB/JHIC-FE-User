@@ -21,6 +21,7 @@ interface SidebarProps {
   onToggle: () => void;
   onResetChat: () => void;
   onMobileClose: () => void;
+  onOpenSettings: () => void;
 }
 
 interface NavItemProps {
@@ -79,7 +80,7 @@ function NavItem({ Icon, label, route, collapsed, onMobileClose }: NavItemProps)
   );
 }
 
-function Sidebar({ collapsed, mobileOpen, onToggle, onResetChat, onMobileClose }: SidebarProps) {
+function Sidebar({ collapsed, mobileOpen, onToggle, onResetChat, onMobileClose, onOpenSettings }: SidebarProps) {
   const navigate = useNavigate();
   return (
     <aside className={`sidebar${collapsed ? " sidebar--collapsed" : ""}${mobileOpen ? " sidebar--mobile-open" : ""}`}>
@@ -210,6 +211,7 @@ function Sidebar({ collapsed, mobileOpen, onToggle, onResetChat, onMobileClose }
               whileHover={{ scale: 1.15, rotate: 45 }}
               whileTap={{ scale: 0.9 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
+              onClick={onOpenSettings}
             >
               <Settings size={16} />
             </motion.button>
