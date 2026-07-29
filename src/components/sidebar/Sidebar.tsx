@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import type { Variants } from "framer-motion";
 import {
   Sparkles,
@@ -18,6 +18,13 @@ interface SidebarProps {
   onToggle: () => void;
 }
 
+interface NavItemProps {
+  Icon: typeof Search;
+  label: string;
+  route: string;
+  collapsed: boolean;
+}
+
 const navIconMap: Record<string, typeof Search> = {
   Search,
   Chats: MessageSquare,
@@ -28,21 +35,34 @@ const navRouteMap: Record<string, string> = {
   Chats: "/",
 };
 
-const iconHover: Variants = {
-  rest: { scale: 1, rotate: 0 },
-  hover: { scale: 1.2, rotate: 0, transition: { duration: 0.2, ease: "easeOut" } },
+const iconScale: Variants = {
+  initial: { scale: 1, rotate: 0 },
+  hover: { scale: 1.2, rotate: -10, transition: { duration: 0.2, ease: "easeOut" } },
 };
 
-function NavIcon({ Icon }: { Icon: typeof Search }) {
+function NavItem({ Icon, label, route, collapsed }: NavItemProps) {
+  const controls = useAnimation();
+
   return (
-    <motion.span
-      style={{ display: "inline-flex" }}
-      variants={iconHover}
-      initial="rest"
-      whileHover="hover"
+    <NavLink
+      to={route}
+      end={route === "/"}
+      className={({ isActive }) =>
+        `nav-item${isActive ? " active" : ""}`
+      }
+      onMouseEnter={() => controls.start("hover")}
+      onMouseLeave={() => controls.start("initial")}
     >
-      <Icon size={18} />
-    </motion.span>
+      <motion.span
+        style={{ display: "inline-flex" }}
+        variants={iconScale}
+        initial="initial"
+        animate={controls}
+      >
+        <Icon size={18} />
+      </motion.span>
+      {!collapsed && <span>{label}</span>}
+    </NavLink>
   );
 }
 
@@ -72,7 +92,7 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
             className="icon-btn sidebar-collapse-btn"
             onClick={onToggle}
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-            whileHover={{ scale: 1.15, rotate: collapsed ? 0 : 180 }}
+            whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
           >
@@ -90,14 +110,14 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
           <motion.button
             type="button"
             className="new-chat-btn"
-            whileHover={{ scale: 1.01 }}
+            whileHover="hover"
             whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.15 }}
           >
             <motion.span
               style={{ display: "inline-flex" }}
-              whileHover={{ rotate: 90 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
+              variants={{
+                hover: { rotate: 90, transition: { duration: 0.2, ease: "easeOut" } },
+              }}
             >
               <Plus size={16} />
             </motion.span>
@@ -110,17 +130,13 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
             const Icon = navIconMap[label];
             const route = navRouteMap[label];
             return (
-              <NavLink
+              <NavItem
                 key={label}
-                to={route}
-                end={route === "/"}
-                className={({ isActive }) =>
-                  `nav-item${isActive ? " active" : ""}`
-                }
-              >
-                {Icon && <NavIcon Icon={Icon} />}
-                {!collapsed && <span>{label}</span>}
-              </NavLink>
+                Icon={Icon}
+                label={label}
+                route={route}
+                collapsed={collapsed}
+              />
             );
           })}
         </nav>
@@ -132,11 +148,15 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
               <motion.button
                 type="button"
                 className="nav-item"
-                whileHover={{ scale: 1.01 }}
+                whileHover="hover"
                 whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.15 }}
               >
-                <NavIcon Icon={Compass} />
+                <motion.span
+                  style={{ display: "inline-flex" }}
+                  variants={iconScale}
+                >
+                  <Compass size={18} />
+                </motion.span>
                 <span>{data.exploreGpts}</span>
               </motion.button>
             </div>
