@@ -1,0 +1,56 @@
+{
+  "upload": {
+    "title": "Review CV dengan AI",
+    "description": "Upload CV Anda dalam format PDF dan dapatkan analisis mendalam beserta saran perbaikan.",
+    "dropzoneText": "Seret file CV ke sini",
+    "browseText": "atau klik untuk memilih file",
+    "fileRestriction": "PDF, maksimal 5 MB",
+    "selectButton": "Pilih File",
+    "analyzeButton": "Mulai Analisis",
+    "guide": {
+      "title": "Cara Menggunakan",
+      "steps": [
+        "Upload file CV Anda dalam format PDF",
+        "Klik tombol \"Mulai Analisis\" untuk memulai",
+        "Tunggu hingga proses analisis selesai",
+        "Lihat hasil review dan saran perbaikan"
+      ],
+      "checksTitle": "Yang Kami Analisis",
+      "checks": [
+        "Kelengkapan bagian CV",
+        "Tata bahasa dan typo",
+        "Format dan tata letak",
+        "Kompatibilitas ATS"
+      ],
+      "tipsTitle": "Tips",
+      "tips": [
+        "Gunakan PDF dengan teks, bukan hasil scan",
+        "Pastikan file tidak lebih dari 5 MB",
+        "CV berbahasa Indonesia atau Inggris"
+      ]
+    }
+  },
+  "loading": {
+    "title": "Menganalisis CV Anda"
+  },
+  "result": {
+    "heading": "Hasil Review CV",
+    "scoreLabel": "Skor Keseluruhan",
+    "atsLabel": "ATS Check",
+    "atsGood": "Baik",
+    "atsNeedsImprovement": "Perlu Perbaikan",
+    "grammarLabel": "Isu Grammar",
+    "grammarCount": "ditemukan",
+    "formatLabel": "Format & Tata Letak",
+    "quickStats": {
+      "pages": "Halaman",
+      "words": "Kata",
+      "lastUpdated": "Terakhir Diupdate"
+    },
+    "strengths": "Kekuatan",
+    "weaknesses": "Kelemahan",
+    "suggestionsTitle": "Saran Perbaikan",
+    "improveButton": "Perbaiki dengan AI",
+    "uploadAgain": "Upload CV Lain"
+  }
+}
