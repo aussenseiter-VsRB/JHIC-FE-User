@@ -4,7 +4,6 @@ import {
   Plus,
   Search,
   MessageSquare,
-  FolderKanban,
   Library,
   Code,
   Compass,
@@ -12,7 +11,6 @@ import {
 } from "lucide-react";
 
 import RecentItem from "./RecentItem";
-import ProjectItem from "./ProjectItem";
 import data from "../../modules/nexxa/nexxa.json";
 
 interface SidebarProps {
@@ -23,7 +21,6 @@ interface SidebarProps {
 const navIconMap: Record<string, typeof Search> = {
   Search,
   Chats: MessageSquare,
-  Projects: FolderKanban,
   Library,
   Code,
 };
@@ -79,13 +76,6 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
             </div>
 
             <div className="sidebar-section">
-              <div className="sidebar-section-title">{data.projectsTitle}</div>
-              {data.projects.map((project) => (
-                <ProjectItem key={project} label={project} />
-              ))}
-            </div>
-
-            <div className="sidebar-section">
               <div className="sidebar-section-title">{data.recentsTitle}</div>
               {data.recents.length === 0 ? (
                 <div className="sidebar-empty">No recent chats</div>
@@ -101,16 +91,6 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
 
       {!collapsed && (
         <div className="sidebar-bottom">
-          <div className="promo-card">
-            <div className="promo-header">
-              <span className="promo-title">{data.promoTitle}</span>
-              <span className="promo-badge">{data.promoBadge}</span>
-            </div>
-            <button type="button" className="promo-cta">
-              {data.promoCta}
-            </button>
-          </div>
-
           <div className="user-footer">
             <div className="user-avatar">
               {data.userName.charAt(0).toUpperCase()}

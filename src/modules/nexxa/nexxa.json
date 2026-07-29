@@ -1,20 +1,13 @@
 {
   "appName": "Nexxa AI",
   "userName": "User",
-  "plan": "Free plan",
   "newChat": "New chat",
-  "planAction": "Upgrade",
   "inputPlaceholder": "How can I help you today?",
-  "navItems": ["Search", "Chats", "Projects", "Library", "Code"],
+  "navItems": ["Search", "Chats", "Library", "Code"],
   "gptsTitle": "GPTs",
   "exploreGpts": "Explore GPTs",
-  "projectsTitle": "Projects",
-  "projects": ["Content Plan", "Wellness Plan"],
   "recentsTitle": "Recents",
   "recents": ["Marketing Campaign Idea", "Cover Image Modification", "Love Notes Idea"],
-  "promoTitle": "Nexxa AI",
-  "promoBadge": "10 days left",
-  "promoCta": "Upgrade to Pro",
   "shortcuts": ["Create an Image", "Smart Writing", "AI Coding", "Deep Research"],
   "models": ["Ling Flash", "Quantum 3 Turbo", "Quantum 3 Pro"]
 }

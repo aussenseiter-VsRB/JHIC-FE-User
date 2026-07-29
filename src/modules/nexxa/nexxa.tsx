@@ -25,7 +25,7 @@ function Nexxa() {
         onToggle={() => setSidebarCollapsed((v) => !v)}
       />
       <main className="main-content">
-        <ChatHeader plan={data.plan} planAction={data.planAction} />
+        <ChatHeader />
         <div className="main-center">
           <Greeting name={data.userName} />
           <ChatInput

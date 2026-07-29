@@ -1,16 +1,8 @@
 import { History, Settings } from "lucide-react";
 
-interface ChatHeaderProps {
-  plan: string;
-  planAction: string;
-}
-
-function ChatHeader({ plan, planAction }: ChatHeaderProps) {
+function ChatHeader() {
   return (
     <header className="chat-header">
-      <button type="button" className="plan-badge">
-        {plan} <span className="plan-action">· {planAction}</span>
-      </button>
       <div className="chat-header-actions">
         <button type="button" className="icon-btn" aria-label="History">
           <History size={18} />

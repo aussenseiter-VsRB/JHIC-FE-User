@@ -134,37 +134,6 @@
   padding: 8px 12px;
 }
 
-/* ── Project Item ── */
-.project-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  background: transparent;
-  color: #a1a1aa;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-  text-align: left;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.project-item:hover {
-  background: #1e1e20;
-  color: #e8e8ea;
-}
-
-.project-item span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 /* ── Recent Item ── */
 .recent-item {
   display: flex;
@@ -194,53 +163,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-/* ── Promo Card ── */
-.promo-card {
-  background: linear-gradient(135deg, #1c1c20, #1a1a1e);
-  border: 1px solid #27272a;
-  border-radius: 8px;
-  padding: 12px;
-  margin: 8px;
-}
-
-.promo-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.promo-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #e8e8ea;
-}
-
-.promo-badge {
-  font-size: 11px;
-  color: #a1a1aa;
-  background: #27272a;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-
-.promo-cta {
-  width: 100%;
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
-  background: #c084fc;
-  color: #0a0a0b;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.promo-cta:hover {
-  background: #a855f7;
 }
 
 /* ── User Footer ── */
@@ -306,31 +228,9 @@
 .chat-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 12px 20px;
   flex-shrink: 0;
-}
-
-.plan-badge {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid #27272a;
-  background: transparent;
-  color: #a1a1aa;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.plan-badge:hover {
-  background: #1e1e20;
-}
-
-.plan-action {
-  color: #c084fc;
 }
 
 .chat-header-actions {
