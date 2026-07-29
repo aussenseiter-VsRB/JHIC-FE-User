@@ -47,6 +47,13 @@ function ChatInput({
   }, [isSending]);
 
   useEffect(() => {
+    const ta = textareaRef.current;
+    if (!ta) return;
+    ta.style.height = "auto";
+    ta.style.height = `${ta.scrollHeight}px`;
+  }, [value]);
+
+  useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setOpen(false);
@@ -111,43 +118,44 @@ function ChatInput({
           </div>
         )}
 
-        <div className="chat-input-placeholder-wrap">
-          {value === "" && placeholderCycle && placeholderCycle.length > 0 && (
-            <div
-              className={`chat-input-placeholder-fake chat-input-placeholder-fake--visible`}
-              aria-hidden="true"
-            >
-              {placeholderCycle.map((p, i) => (
-                <span
-                  key={p}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    opacity: i === placeholderIndex ? 1 : 0,
-                    transition: "opacity 0.4s ease",
-                  }}
-                >
-                  {p}
-                </span>
-              ))}
-            </div>
-          )}
-          <textarea
-            ref={textareaRef}
-            className="chat-input-field"
-            placeholder={
-              placeholderCycle && placeholderCycle.length > 0
-                ? ""
-                : placeholder
-            }
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-            rows={1}
-            disabled={isSending}
-            aria-label="Pesan"
-          />
+        <div className="chat-input-scroll">
+          <div className="chat-input-placeholder-wrap">
+            {value === "" && placeholderCycle && placeholderCycle.length > 0 && (
+              <div
+                className={`chat-input-placeholder-fake chat-input-placeholder-fake--visible`}
+                aria-hidden="true"
+              >
+                {placeholderCycle.map((p, i) => (
+                  <span
+                    key={p}
+                    style={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      opacity: i === placeholderIndex ? 1 : 0,
+                      transition: "opacity 0.4s ease",
+                    }}
+                  >
+                    {p}
+                  </span>
+                ))}
+              </div>
+            )}
+            <textarea
+              ref={textareaRef}
+              className="chat-input-field"
+              placeholder={
+                placeholderCycle && placeholderCycle.length > 0
+                  ? ""
+                  : placeholder
+              }
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              disabled={isSending}
+              aria-label="Pesan"
+            />
+          </div>
         </div>
 
         <div className="chat-input-tools">
