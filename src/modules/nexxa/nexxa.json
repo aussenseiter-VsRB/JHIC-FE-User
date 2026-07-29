@@ -3,7 +3,7 @@
   "userName": "User",
   "newChat": "New chat",
   "inputPlaceholder": "How can I help you today?",
-  "navItems": ["Search", "Chats", "Library", "Code"],
+  "navItems": ["Search", "Chats"],
   "gptsTitle": "GPTs",
   "exploreGpts": "Explore GPTs",
   "recentsTitle": "Recents",

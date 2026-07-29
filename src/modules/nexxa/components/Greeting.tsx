@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 interface GreetingProps {
   name: string;
 }
@@ -11,11 +13,23 @@ function getTimeOfDay(): string {
 }
 
 function Greeting({ name }: GreetingProps) {
+  const text = `Good ${getTimeOfDay()}, ${name}`;
+
   return (
     <div className="greeting">
-      <h1 className="greeting-text">
-        Good {getTimeOfDay()}, {name}
-      </h1>
+      <motion.h1 className="greeting-text" aria-label={text}>
+        {text.split("").map((char, i) => (
+          <motion.span
+            key={i}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.03, duration: 0.35, ease: "easeOut" }}
+            style={{ display: char === " " ? "inline" : "inline-block" }}
+          >
+            {char === " " ? "\u00A0" : char}
+          </motion.span>
+        ))}
+      </motion.h1>
     </div>
   );
 }

@@ -1,16 +1,36 @@
+import { motion } from "framer-motion";
 import { History, Settings } from "lucide-react";
 
 function ChatHeader() {
   return (
     <header className="chat-header">
-      <div className="chat-header-actions">
-        <button type="button" className="icon-btn" aria-label="History">
+      <motion.div
+        className="chat-header-actions"
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        <motion.button
+          type="button"
+          className="icon-btn"
+          aria-label="History"
+          whileHover={{ scale: 1.15, rotate: -5 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ duration: 0.15 }}
+        >
           <History size={18} />
-        </button>
-        <button type="button" className="icon-btn" aria-label="Settings">
+        </motion.button>
+        <motion.button
+          type="button"
+          className="icon-btn"
+          aria-label="Settings"
+          whileHover={{ scale: 1.15, rotate: 45 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ duration: 0.15 }}
+        >
           <Settings size={18} />
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
     </header>
   );
 }

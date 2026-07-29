@@ -4,12 +4,10 @@ import {
   Plus,
   Search,
   MessageSquare,
-  Library,
-  Code,
   Compass,
   Settings,
 } from "lucide-react";
-
+import { NavLink } from "react-router-dom";
 import RecentItem from "./RecentItem";
 import data from "../../modules/nexxa/nexxa.json";
 
@@ -21,8 +19,11 @@ interface SidebarProps {
 const navIconMap: Record<string, typeof Search> = {
   Search,
   Chats: MessageSquare,
-  Library,
-  Code,
+};
+
+const navRouteMap: Record<string, string> = {
+  Search: "/search",
+  Chats: "/",
 };
 
 function Sidebar({ collapsed, onToggle }: SidebarProps) {
@@ -56,11 +57,19 @@ function Sidebar({ collapsed, onToggle }: SidebarProps) {
         <nav className="sidebar-nav">
           {data.navItems.map((label) => {
             const Icon = navIconMap[label];
+            const route = navRouteMap[label];
             return (
-              <button key={label} type="button" className="nav-item">
+              <NavLink
+                key={label}
+                to={route}
+                end={route === "/"}
+                className={({ isActive }) =>
+                  `nav-item${isActive ? " active" : ""}`
+                }
+              >
                 {Icon && <Icon size={18} />}
                 {!collapsed && <span>{label}</span>}
-              </button>
+              </NavLink>
             );
           })}
         </nav>

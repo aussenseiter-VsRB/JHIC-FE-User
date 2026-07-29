@@ -1,7 +1,10 @@
-import Nexxa from "./modules/nexxa/nexxa";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { routes } from "./core/routes";
+
+const router = createBrowserRouter(routes);
 
 function App() {
-  return <Nexxa />;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
