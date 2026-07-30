@@ -1,7 +1,18 @@
 {
-  "upload": {
+  "pageHeader": {
+    "eyebrow": "Audit CV Berbasis AI",
     "title": "Review CV dengan AI",
     "description": "Upload CV Anda dalam format PDF dan dapatkan analisis mendalam berbasis kriteria ATS & rekruter.",
+    "features": [
+      { "label": "ATS Check", "icon": "scan" },
+      { "label": "Grammar Audit", "icon": "spell" },
+      { "label": "Format & Layout", "icon": "layout" },
+      { "label": "Rekomendasi AI", "icon": "sparkles" }
+    ]
+  },
+  "upload": {
+    "title": "Upload CV Anda",
+    "description": "Seret file PDF ke area di bawah atau pilih dari perangkat Anda.",
     "dropzoneText": "Seret file CV ke sini",
     "browseText": "atau klik untuk memilih file",
     "fileRestriction": "Format PDF, maksimal 5 MB",

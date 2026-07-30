@@ -714,6 +714,11 @@
 .review-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto auto;
+  grid-template-areas:
+    "score   score   format  format"
+    "score   score   ats     grammar"
+    "stats   stats   stats   stats";
   gap: 16px;
 }
 
@@ -726,35 +731,32 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
 
   &:hover {
     border-color: var(--border-subtle);
     box-shadow: var(--shadow-card);
+    transform: translateY(-1px);
   }
 
   &--score {
-    grid-column: 1 / 3;
-    grid-row: 1 / 3;
+    grid-area: score;
   }
 
-  &--medium {
-    grid-column: 3 / 5;
-    grid-row: 1 / 2;
+  &--format {
+    grid-area: format;
   }
 
-  &--small {
-    grid-column: 3 / 4;
-    grid-row: 2 / 3;
+  &--ats {
+    grid-area: ats;
   }
 
-  &--small + &--small {
-    grid-column: 4 / 5;
-    grid-row: 2 / 3;
+  &--grammar {
+    grid-area: grammar;
   }
 
-  &--full {
-    grid-column: 1 / -1;
+  &--stats {
+    grid-area: stats;
   }
 
   &-header {
@@ -773,6 +775,12 @@
     justify-content: center;
     color: var(--text-muted);
     flex-shrink: 0;
+    transition: background 0.25s, color 0.25s;
+  }
+
+  &:hover &-icon {
+    background: rgba(var(--card-accent-rgb, 255, 255, 255), 0.12);
+    color: var(--card-accent, var(--text-muted));
   }
 
   &-title {
@@ -780,6 +788,57 @@
     font-weight: 600;
     color: var(--text-secondary);
     margin: 0;
+  }
+
+  &--format {
+    --card-accent: #60a5fa;
+    --card-accent-rgb: 96, 165, 250;
+    border-color: rgba(96, 165, 250, 0.12);
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.04), var(--bg-surface));
+  }
+
+  &--format .review-card-icon {
+    background: rgba(96, 165, 250, 0.12);
+    color: #60a5fa;
+  }
+
+  &--format:hover {
+    border-color: rgba(96, 165, 250, 0.3);
+    box-shadow: 0 4px 24px rgba(96, 165, 250, 0.08);
+  }
+
+  &--ats {
+    --card-accent: #c084fc;
+    --card-accent-rgb: 192, 132, 252;
+    border-color: rgba(192, 132, 252, 0.12);
+    background: linear-gradient(135deg, rgba(192, 132, 252, 0.04), var(--bg-surface));
+  }
+
+  &--ats .review-card-icon {
+    background: rgba(192, 132, 252, 0.12);
+    color: #c084fc;
+  }
+
+  &--ats:hover {
+    border-color: rgba(192, 132, 252, 0.3);
+    box-shadow: 0 4px 24px rgba(192, 132, 252, 0.08);
+  }
+
+  &--grammar {
+    --card-accent: #fb7185;
+    --card-accent-rgb: 251, 113, 133;
+    border-color: rgba(251, 113, 133, 0.12);
+    background: linear-gradient(135deg, rgba(251, 113, 133, 0.04), var(--bg-surface));
+  }
+
+  &--grammar .review-card-icon {
+    background: rgba(251, 113, 133, 0.12);
+    color: #fb7185;
+  }
+
+  &--grammar:hover {
+    border-color: rgba(251, 113, 133, 0.3);
+    box-shadow: 0 4px 24px rgba(251, 113, 133, 0.08);
   }
 
   &-list {
@@ -1017,6 +1076,15 @@
   color: var(--text-muted);
 }
 
+.review-card--stats {
+  border-color: rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), var(--bg-surface));
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
 .review-quick-stats {
   display: flex;
   align-items: center;
@@ -1026,6 +1094,16 @@
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 12px;
+  }
+}
+
+.review-card--score {
+  background: linear-gradient(135deg, rgba(192, 132, 252, 0.04), var(--bg-surface));
+  border-color: rgba(192, 132, 252, 0.1);
+
+  &:hover {
+    border-color: rgba(192, 132, 252, 0.2);
+    box-shadow: 0 4px 32px rgba(192, 132, 252, 0.06);
   }
 }
 
@@ -1362,45 +1440,27 @@
 /* ── Responsive Layouts ── */
 @media (max-width: 1023px) {
   .review-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .review-card--score {
-    grid-column: 1 / -1;
-    grid-row: auto;
-  }
-
-  .review-card--medium {
-    grid-column: 1 / -1;
-    grid-row: auto;
-  }
-
-  .review-card--small {
-    grid-column: 1 / 2;
-    grid-row: auto;
-  }
-
-  .review-card--small + .review-card--small {
-    grid-column: 2 / 3;
-    grid-row: auto;
-  }
-
-  .review-card--full {
-    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "score   score"
+      "format  format"
+      "ats     grammar"
+      "stats   stats";
   }
 }
 
 @media (max-width: 768px) {
   .review-grid {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "score"
+      "format"
+      "ats"
+      "grammar"
+      "stats";
   }
 
-  .review-card--score,
-  .review-card--medium,
-  .review-card--small,
-  .review-card--small + .review-card--small,
-  .review-card--full {
-    grid-column: 1;
-    grid-row: auto;
+  .review-card {
+    padding: 20px;
   }
 }

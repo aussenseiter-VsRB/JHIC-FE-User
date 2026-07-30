@@ -221,7 +221,7 @@ Jumlah Isu Grammar: ${r.grammar.issues}`;
 
         {/* Format Card */}
         <motion.div
-          className="review-card review-card--medium"
+          className="review-card review-card--format"
           custom={1}
           variants={cardVariants}
           initial="hidden"
@@ -253,7 +253,7 @@ Jumlah Isu Grammar: ${r.grammar.issues}`;
 
         {/* ATS Card */}
         <motion.div
-          className="review-card review-card--small"
+          className="review-card review-card--ats"
           custom={2}
           variants={cardVariants}
           initial="hidden"
@@ -284,7 +284,7 @@ Jumlah Isu Grammar: ${r.grammar.issues}`;
 
         {/* Grammar Card */}
         <motion.div
-          className="review-card review-card--small"
+          className="review-card review-card--grammar"
           custom={3}
           variants={cardVariants}
           initial="hidden"
@@ -304,7 +304,7 @@ Jumlah Isu Grammar: ${r.grammar.issues}`;
 
         {/* Quick Stats Bar */}
         <motion.div
-          className="review-card review-card--full"
+          className="review-card review-card--stats"
           custom={4}
           variants={cardVariants}
           initial="hidden"
