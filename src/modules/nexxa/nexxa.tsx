@@ -42,7 +42,7 @@ const fadeUp: Variants = {
 function Nexxa() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isSending, setIsSending] = useState(false);
-  const { resetKey, onOpenSettings } = useOutletContext<ChatContext>();
+  const { resetKey, onOpenSettings, font } = useOutletContext<ChatContext>();
 
   useEffect(() => {
     setMessages([]);
@@ -60,20 +60,50 @@ function Nexxa() {
     }, 1200);
   }
 
-  if (messages.length === 0) {
-    return (
-      <>
-        <ChatHeader onOpenSettings={onOpenSettings} />
-        <motion.div
-          className="main-center"
-          variants={stagger}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div variants={fadeUp}>
-            <Greeting name={data.userName} />
+  return (
+    <div className="chat-container" data-chat-font={font}>
+      {messages.length === 0 ? (
+        <>
+          <ChatHeader onOpenSettings={onOpenSettings} />
+          <motion.div
+            className="main-center"
+            variants={stagger}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div variants={fadeUp}>
+              <Greeting name={data.userName} />
+            </motion.div>
+            <motion.div variants={fadeUp} style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+              <ChatInput
+                placeholder={data.inputPlaceholder}
+                models={data.models}
+                onSend={handleSend}
+                isSending={isSending}
+                maxChars={data.maxChars}
+                placeholderCycle={data.placeholderCycle}
+              />
+            </motion.div>
+            <motion.div className="shortcut-chips" variants={fadeUp}>
+                {data.shortcuts.map((label) => {
+                const Icon = shortcutIconMap[label];
+                return Icon ? (
+                  <ShortcutChip key={label} icon={Icon} label={label} onClick={() => handleSend(label)} />
+                ) : null;
+              })}
+            </motion.div>
           </motion.div>
-          <motion.div variants={fadeUp} style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        </>
+      ) : (
+        <>
+          <ChatHeader />
+          <div className="chat-messages">
+            {messages.map((msg, i) => (
+              <ChatMessage key={i} role={msg.role} content={msg.content} />
+            ))}
+            {isSending && <ChatMessage role="assistant" isTyping />}
+          </div>
+          <div className="chat-input-bottom">
             <ChatInput
               placeholder={data.inputPlaceholder}
               models={data.models}
@@ -82,40 +112,10 @@ function Nexxa() {
               maxChars={data.maxChars}
               placeholderCycle={data.placeholderCycle}
             />
-          </motion.div>
-          <motion.div className="shortcut-chips" variants={fadeUp}>
-              {data.shortcuts.map((label) => {
-              const Icon = shortcutIconMap[label];
-              return Icon ? (
-                <ShortcutChip key={label} icon={Icon} label={label} onClick={() => handleSend(label)} />
-              ) : null;
-            })}
-          </motion.div>
-        </motion.div>
-      </>
-    );
-  }
-
-  return (
-    <>
-      <ChatHeader />
-      <div className="chat-messages">
-        {messages.map((msg, i) => (
-          <ChatMessage key={i} role={msg.role} content={msg.content} />
-        ))}
-        {isSending && <ChatMessage role="assistant" isTyping />}
-      </div>
-      <div className="chat-input-bottom">
-        <ChatInput
-          placeholder={data.inputPlaceholder}
-          models={data.models}
-          onSend={handleSend}
-          isSending={isSending}
-          maxChars={data.maxChars}
-          placeholderCycle={data.placeholderCycle}
-        />
-      </div>
-    </>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 

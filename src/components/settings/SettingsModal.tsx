@@ -4,6 +4,10 @@ import { X, User, Palette, LogOut } from "lucide-react";
 import data from "./settingsData.json";
 import "./settings.css";
 
+type Section = "akun" | "tampilan";
+type Theme = "dark" | "light" | "system";
+type Font = "sans-serif" | "serif";
+
 interface SettingsModalProps {
   open: boolean;
   onClose: () => void;
@@ -11,11 +15,9 @@ interface SettingsModalProps {
   initialUsername?: string;
   userId?: string;
   namaAsli?: string;
+  font: Font;
+  onFontChange: (font: Font) => void;
 }
-
-type Section = "akun" | "tampilan";
-type Theme = "dark" | "light" | "system";
-type Font = "sans-serif" | "serif";
 
 const sidebarIcons: Record<Section, typeof User> = {
   akun: User,
@@ -45,11 +47,12 @@ function SettingsModal({
   initialUsername = "Pengguna",
   userId = "USR-001",
   namaAsli = "Pengguna",
+  font,
+  onFontChange,
 }: SettingsModalProps) {
   const [activeSection, setActiveSection] = useState<Section>("akun");
   const [username, setUsername] = useState(initialUsername);
   const [theme, setTheme] = useState<Theme>("dark");
-  const [font, setFont] = useState<Font>("sans-serif");
 
   const handleClose = useCallback(() => {
     setActiveSection("akun");
@@ -198,7 +201,7 @@ function SettingsModal({
                                 "settings-option-btn" +
                                 (isActive ? " settings-option-btn--active" : "")
                               }
-                              onClick={() => setFont(opt.value as Font)}
+                              onClick={() => onFontChange(opt.value as Font)}
                             >
                               <span className="settings-option-indicator" />
                               <span>{opt.label}</span>

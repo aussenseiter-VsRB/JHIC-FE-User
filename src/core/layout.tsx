@@ -5,9 +5,12 @@ import SettingsModal from "../components/settings/SettingsModal";
 import { Menu } from "lucide-react";
 import "./layout.css";
 
+type Font = "sans-serif" | "serif";
+
 export interface ChatContext {
   resetKey: number;
   onOpenSettings: () => void;
+  font: Font;
 }
 
 function Layout() {
@@ -16,6 +19,7 @@ function Layout() {
   const [isMobile, setIsMobile] = useState(false);
   const [resetKey, setResetKey] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [font, setFont] = useState<Font>("sans-serif");
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
@@ -54,6 +58,10 @@ function Layout() {
     setSettingsOpen(false);
   }, []);
 
+  const handleFontChange = useCallback((f: Font) => {
+    setFont(f);
+  }, []);
+
   return (
     <div className="app-layout">
       <Sidebar
@@ -78,11 +86,13 @@ function Layout() {
         </button>
       )}
       <main className="main-content">
-        <Outlet context={{ resetKey, onOpenSettings: handleOpenSettings } satisfies ChatContext} />
+        <Outlet context={{ resetKey, onOpenSettings: handleOpenSettings, font } satisfies ChatContext} />
       </main>
       <SettingsModal
         open={settingsOpen}
         onClose={handleCloseSettings}
+        font={font}
+        onFontChange={handleFontChange}
       />
     </div>
   );
