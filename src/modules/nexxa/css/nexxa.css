@@ -66,6 +66,66 @@
   40% { transform: scale(1); opacity: 1; }
 }
 
+@keyframes ball-bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-6px);
+    opacity: 1;
+    background: #c084fc;
+    box-shadow: 0 0 6px rgba(192, 132, 252, 0.6);
+  }
+}
+
+.bounce-balls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 6px;
+}
+
+.bounce-ball {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a1a1aa;
+  display: inline-block;
+  animation: ball-bounce 0.8s infinite ease-in-out;
+}
+
+.bounce-ball-1 {
+  animation-delay: 0s;
+}
+
+.bounce-ball-2 {
+  animation-delay: 0.16s;
+}
+
+.bounce-ball-3 {
+  animation-delay: 0.32s;
+}
+
+.submit-bounce-balls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.submit-bounce-balls .bounce-ball {
+  width: 4px;
+  height: 4px;
+  background: #0a0a0b;
+}
+
+.chat-message-bubble--typing {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+}
+
 /* ── Chat Input ── */
 .chat-input-wrapper {
   width: 100%;

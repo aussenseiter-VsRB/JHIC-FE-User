@@ -103,6 +103,7 @@ function Nexxa() {
         {messages.map((msg, i) => (
           <ChatMessage key={i} role={msg.role} content={msg.content} />
         ))}
+        {isSending && <ChatMessage role="assistant" isTyping />}
       </div>
       <div className="chat-input-bottom">
         <ChatInput

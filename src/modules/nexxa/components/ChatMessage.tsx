@@ -3,10 +3,11 @@ import { Bot, User } from "lucide-react";
 
 interface ChatMessageProps {
   role: "user" | "assistant";
-  content: string;
+  content?: string;
+  isTyping?: boolean;
 }
 
-function ChatMessage({ role, content }: ChatMessageProps) {
+function ChatMessage({ role, content, isTyping = false }: ChatMessageProps) {
   const isUser = role === "user";
 
   return (
@@ -19,8 +20,16 @@ function ChatMessage({ role, content }: ChatMessageProps) {
       <div className="chat-message-avatar">
         {isUser ? <User size={14} /> : <Bot size={14} />}
       </div>
-      <div className="chat-message-bubble">
-        <p>{content}</p>
+      <div className={`chat-message-bubble ${isTyping ? "chat-message-bubble--typing" : ""}`}>
+        {isTyping ? (
+          <div className="bounce-balls">
+            <span className="bounce-ball bounce-ball-1" />
+            <span className="bounce-ball bounce-ball-2" />
+            <span className="bounce-ball bounce-ball-3" />
+          </div>
+        ) : (
+          <p>{content}</p>
+        )}
       </div>
     </motion.div>
   );

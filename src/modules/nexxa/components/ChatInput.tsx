@@ -252,7 +252,11 @@ function ChatInput({
               disabled={isSending || isOverLimit || !value.trim()}
             >
               {isSending ? (
-                <div className="submit-spinner" />
+                <div className="submit-bounce-balls">
+                  <span className="bounce-ball bounce-ball-1" />
+                  <span className="bounce-ball bounce-ball-2" />
+                  <span className="bounce-ball bounce-ball-3" />
+                </div>
               ) : (
                 <ArrowUp size={20} />
               )}
