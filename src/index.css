@@ -2,6 +2,45 @@
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
+  /* ── Colors ── */
+  --clr-purple: #c084fc;
+  --clr-purple-dark: #a855f7;
+  --clr-green: #22c55e;
+  --clr-red: #f87171;
+  --clr-yellow: #facc15;
+  --clr-blue: #38bdf8;
+
+  /* ── Text ── */
+  --text-primary: #f4f4f5;
+  --text-secondary: #e4e4e7;
+  --text-tertiary: #d4d4d8;
+  --text-muted: #a1a1aa;
+  --text-subdued: #71717a;
+  --text-on-accent: #0a0a0b;
+
+  /* ── Backgrounds ── */
+  --bg-page: #18181b;
+  --bg-surface: rgba(32, 32, 36, 0.75);
+  --bg-surface-hover: rgba(39, 39, 44, 0.85);
+  --bg-elevated: rgba(32, 32, 36, 0.85);
+  --bg-glass: rgba(32, 32, 36, 0.9);
+
+  /* ── Borders ── */
+  --border-default: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.15);
+
+  /* ── Radius ── */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* ── Shadows ── */
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.2);
+  --shadow-glow: 0 0 24px rgba(192, 132, 252, 0.15);
+  --shadow-btn: 0 4px 20px rgba(168, 85, 247, 0.25);
+  --shadow-btn-hover: 0 6px 28px rgba(168, 85, 247, 0.4);
+
   font: 16px/1.5 var(--sans);
   color-scheme: dark;
   font-synthesis: none;
