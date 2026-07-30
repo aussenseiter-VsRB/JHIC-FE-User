@@ -1,10 +1,10 @@
 # JHIC-FE-User
 
-React 19 + TypeScript 6 + Vite 8 single-page application. This is the user-facing frontend for JHIC.
+React 19 + TypeScript 6 + Vite 8 single-page application. This is the user-facing frontend for JHIC — an **AI chatbot platform** (Nexxa AI) dengan dashboard tools PKL, CV Review, dan Timeline Agit.
 
 ## Current State
 
-The project is bootstrapped from the official Vite template. The `src/` directory contains only the default template files (`App.tsx`, `main.tsx`, `index.css`, `App.css`). **No application code has been written yet.** The architecture described throughout this `docs/` folder is the intended design — treat it as the blueprint for all future work.
+The app is partially implemented. **5 modules** sudah berfungsi: `nexxa/` (chat AI utama), `search/` (riwayat konsultasi), `cv-review/` (analisis CV), `timeline-agit/` (timeline interaktif), dan `dashboard-pkl/` (placeholder). Routing, layout, sidebar, dan settings modal sudah aktif. Lihat `docs/core/desain.md` untuk detail lengkap.
 
 ## Base Documentation Rules
 
@@ -30,8 +30,9 @@ This project uses a frontmatter-based documentation system. Every `.md` file (ex
 1. Read `AGENTS.md` (root) for project context.
 2. Read `README.md` (this file) for base rules.
 3. Read `index.md` for the documentation TOC and section-specific rules.
-4. Read the relevant section docs (e.g., `docs/modules/RULES.md` for module work).
-5. Read `type: Enforce` docs before writing any code.
-6. For module creation, read the examples in `docs/modules/examples/{moduleName}/` for reference.
-7. Write your code following the documented patterns.
-8. If modifying existing docs, only touch `type: editable` files.
+4. Read `docs/core/desain.md` for actual design context, dependencies, and patterns.
+5. Read the relevant section docs (e.g., `docs/modules/RULES.md` for module work).
+6. Read `type: Enforce` docs before writing any code.
+7. For module creation, read the examples in `docs/modules/examples/{moduleName}/` for reference.
+8. Write your code following the documented patterns.
+9. If modifying existing docs, only touch `type: editable` files.

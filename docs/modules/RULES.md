@@ -7,7 +7,7 @@ type: Enforce
 
 # Module Creation Rules
 
-> **Current status:** No modules exist yet. These rules define how modules **must** be structured when they are created.
+> **Current status:** 5 modules exist (`nexxa/`, `search/`, `dashboard-pkl/`, `cv-review/`, `timeline-agit/`). These rules apply to all current and future modules.
 
 ## 1. Module structure
 
