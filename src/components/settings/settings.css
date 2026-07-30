@@ -12,7 +12,8 @@
   display: flex;
   flex-direction: column;
   width: 680px;
-  height: 420px;
+  max-width: 94vw;
+  max-height: 80vh;
   background: #141416;
   border: 1px solid #27272a;
   border-radius: 12px;
@@ -237,6 +238,52 @@
 .settings-logout-btn:hover {
   background: rgba(248, 113, 113, 0.1);
   border-color: #f87171;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .settings-modal {
+    max-height: 90vh;
+  }
+
+  .settings-body {
+    flex-direction: column;
+  }
+
+  .settings-sidebar {
+    width: 100%;
+    flex-direction: row;
+    padding: 8px 12px;
+    border-right: none;
+    border-bottom: 1px solid #27272a;
+    overflow-x: auto;
+    gap: 4px;
+  }
+
+  .settings-sidebar-item {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 8px 12px;
+  }
+
+  .settings-content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-sidebar-item span {
+    display: none;
+  }
+
+  .settings-option-group {
+    flex-direction: column;
+  }
+
+  .settings-option-btn {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 

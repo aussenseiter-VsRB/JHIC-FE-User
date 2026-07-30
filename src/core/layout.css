@@ -308,4 +308,8 @@
     background: #1e1e20;
     color: #e8e8ea;
   }
+
+  .main-content {
+    padding-left: 52px;
+  }
 }

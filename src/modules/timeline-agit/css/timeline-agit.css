@@ -196,3 +196,56 @@
     padding: 12px;
   }
 }
+
+@media (max-width: 480px) {
+  .timeline-page {
+    padding: 16px 12px;
+  }
+
+  .timeline-title {
+    font-size: 1.1rem;
+  }
+
+  .timeline-subtitle {
+    font-size: 13px;
+  }
+
+  .timeline-container {
+    gap: 28px;
+  }
+
+  .timeline-phase-header {
+    gap: 8px;
+  }
+
+  .timeline-phase-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .timeline-phase-title {
+    font-size: 1rem;
+  }
+
+  .timeline-steps {
+    gap: 14px;
+  }
+
+  .timeline-step-dot {
+    width: 20px;
+    height: 20px;
+    margin-left: -11px;
+  }
+
+  .timeline-step-card {
+    padding: 10px;
+  }
+
+  .timeline-step-title {
+    font-size: 13px;
+  }
+
+  .timeline-step-desc {
+    font-size: 12px;
+  }
+}
