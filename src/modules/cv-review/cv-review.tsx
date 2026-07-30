@@ -4,7 +4,6 @@ import type { Variants } from "framer-motion";
 import { analyzeCv, LOADING_STAGES } from "./services/reviewService";
 import type { ReviewResult } from "./services/reviewService";
 import UploadForm from "./components/UploadForm";
-import UsageGuide from "./components/UsageGuide";
 import LoadingScreen from "./components/LoadingScreen";
 import ReviewDashboard from "./components/ReviewDashboard";
 import data from "./cv-review.json";
@@ -98,19 +97,12 @@ function CvReview() {
             exit="exit"
             className="cv-review-step"
           >
-            <div className="cv-review-upload-layout">
-              <div className="cv-review-upload-left">
-                <UploadForm
-                  data={data.upload}
-                  file={file}
-                  onFileSelect={handleFileSelect}
-                  onStartAnalysis={handleStartAnalysis}
-                />
-              </div>
-              <div className="cv-review-upload-right">
-                <UsageGuide data={data.upload.guide} />
-              </div>
-            </div>
+            <UploadForm
+              data={data.upload}
+              file={file}
+              onFileSelect={handleFileSelect}
+              onStartAnalysis={handleStartAnalysis}
+            />
           </motion.div>
         )}
 
