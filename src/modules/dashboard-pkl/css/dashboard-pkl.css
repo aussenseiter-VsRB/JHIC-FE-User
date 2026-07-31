@@ -1,6 +1,9 @@
 /* ── Dashboard PKL ── */
 
 .dashboard-pkl {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
   padding: 32px;
   max-width: 1400px;
   margin: 0 auto;
@@ -11,8 +14,10 @@
 }
 
 .page-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
   color: var(--text-primary);
   margin: 0 0 8px;
 }
@@ -186,7 +191,9 @@
 }
 
 .notification-time {
-  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
   color: var(--text-subdued);
 }
 
@@ -219,8 +226,10 @@
 }
 
 .progress-badge {
-  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   font-weight: 600;
+  letter-spacing: 0.03em;
   color: var(--clr-purple);
   background: rgba(192, 132, 252, 0.1);
   padding: 6px 14px;
@@ -257,8 +266,17 @@
 }
 
 .progress-meta-value {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
   color: var(--text-primary);
   font-weight: 600;
+}
+
+.progress-meta-item svg + span {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
 }
 
 /* ── Overall Progress Bar ── */
@@ -282,9 +300,11 @@
 }
 
 .overall-progress-percent {
+  font-family: var(--font-mono);
   color: var(--clr-purple);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
 }
 
 .overall-progress-bar {
@@ -355,9 +375,9 @@
 }
 
 .step-icon.approved {
-  border-color: var(--clr-green);
-  background: rgba(34, 197, 94, 0.1);
-  color: var(--clr-green);
+  border-color: var(--clr-purple);
+  background: var(--tint-stamp);
+  color: var(--clr-purple);
 }
 
 .step-icon.active {
@@ -382,7 +402,7 @@
 }
 
 .step-connector.approved {
-  background: var(--clr-green);
+  background: var(--clr-purple);
 }
 
 .step-content {
@@ -399,32 +419,47 @@
   gap: 12px;
 }
 
+/* ── Stempel (Signature) ── */
+
+.stamp {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-width: 108px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transform-origin: center;
+  user-select: none;
+}
+
+.stamp--approved {
+  border: 2px solid var(--clr-purple);
+  color: var(--clr-purple);
+  background: var(--tint-stamp);
+  box-shadow:
+    inset 0 0 0 3px var(--tint-stamp),
+    0 0 14px rgba(192, 132, 252, 0.18);
+}
+
+.stamp--pending {
+  border: 2px dashed rgba(161, 161, 170, 0.45);
+  color: rgba(161, 161, 170, 0.65);
+}
+
 .step-label {
   font-size: 1rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
-}
-
-.step-status {
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 999px;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.step-status.approved {
-  color: var(--clr-green);
-  background: rgba(34, 197, 94, 0.1);
-  border: 1px solid rgba(34, 197, 94, 0.2);
-}
-
-.step-status.pending {
-  color: var(--clr-yellow);
-  background: rgba(250, 204, 21, 0.1);
-  border: 1px solid rgba(250, 204, 21, 0.2);
 }
 
 .step-name {
@@ -435,7 +470,9 @@
 }
 
 .step-date {
-  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
   color: var(--text-subdued);
   margin: 0;
 }
@@ -447,7 +484,7 @@
   margin: 6px 0 0;
   padding: 10px;
   background: rgba(255, 255, 255, 0.02);
-  border-left: 2px solid var(--clr-green);
+  border-left: 2px solid var(--clr-purple);
   border-radius: 4px;
 }
 
@@ -512,6 +549,12 @@
 @media (max-width: 480px) {
   .page-header h1 {
     font-size: 1.35rem;
+  }
+
+  .stamp {
+    min-width: 92px;
+    height: 32px;
+    font-size: 9.5px;
   }
 
   .notification-feed,

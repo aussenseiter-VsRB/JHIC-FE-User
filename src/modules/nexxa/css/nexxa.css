@@ -1,5 +1,6 @@
 /* ── Chat Container ── */
 .chat-container {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -8,12 +9,50 @@
 
 /* ── Main Center ── */
 .main-center {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0 24px;
+  z-index: 1;
+}
+
+/* ── Ambient Aurora ── */
+.chat-aurora {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  width: 560px;
+  height: 420px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.chat-aurora::before,
+.chat-aurora::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+}
+
+.chat-aurora::before {
+  width: 420px;
+  height: 260px;
+  top: 0;
+  left: 0;
+  background: radial-gradient(ellipse at center, rgba(168, 85, 247, 0.16), transparent 65%);
+}
+
+.chat-aurora::after {
+  width: 300px;
+  height: 220px;
+  bottom: -20px;
+  right: -40px;
+  background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.12), transparent 65%);
 }
 
 /* ── Chat Header ── */
@@ -38,12 +77,13 @@
 }
 
 .greeting-text {
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: #e8e8ea;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 600;
+  color: #f4f4f5;
   margin: 0;
-  letter-spacing: -0.5px;
-  line-height: 1.2;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
 /* ── Keyframes ── */
@@ -287,7 +327,9 @@
   border: none;
   background: transparent;
   color: #71717a;
-  font-size: 12px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
@@ -333,7 +375,9 @@
   border-radius: 6px;
   background: transparent;
   color: #d4d4d8;
-  font-size: 12px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
   cursor: pointer;
   transition: background 0.12s, color 0.12s;
 }
@@ -408,6 +452,7 @@
   display: flex;
   align-items: center;
   gap: 2px;
+  font-family: var(--font-mono);
   font-size: 11px;
   color: #52525b;
   transition: color 0.2s;
@@ -447,7 +492,7 @@
   background: #27272a;
   color: #52525b;
   font-size: 10px;
-  font-family: inherit;
+  font-family: var(--font-mono);
   line-height: 1;
 }
 
@@ -621,10 +666,6 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .greeting-text {
-    font-size: 1.75rem;
-  }
-
   .main-center {
     padding: 0 16px 80px;
   }
@@ -647,10 +688,6 @@
 }
 
 @media (max-width: 480px) {
-  .greeting-text {
-    font-size: 1.5rem;
-  }
-
   .shortcut-chips {
     gap: 6px;
   }

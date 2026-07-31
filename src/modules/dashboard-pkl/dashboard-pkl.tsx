@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import ProgressStepper from "./components/ProgressStepper";
+import type { Step } from "./components/ProgressStepper";
 import NotificationFeed from "./components/NotificationFeed";
+import type { Notification } from "./components/NotificationFeed";
 import data from "./dashboard-pkl.json";
 import "./css/dashboard-pkl.css";
 
@@ -35,11 +37,11 @@ function DashboardPkl() {
 
       <div className="bento-grid">
         <div className="bento-left">
-          <NotificationFeed notifications={data.notifications} />
+          <NotificationFeed notifications={data.notifications as Notification[]} />
         </div>
         <div className="bento-right">
           <ProgressStepper
-            steps={data.pkl.steps}
+            steps={data.pkl.steps as Step[]}
             nomorSurat={data.pkl.nomorSurat}
             namaSiswa={data.pkl.namaSiswa}
             perusahaan={data.pkl.perusahaan}

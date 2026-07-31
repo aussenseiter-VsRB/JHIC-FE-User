@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { CheckCircle, Clock, FileText } from "lucide-react";
+import Stamp from "./Stamp";
 
-interface Step {
+export interface Step {
   key: string;
   label: string;
   nama: string;
@@ -130,9 +131,7 @@ function ProgressStepper({ steps, nomorSurat, perusahaan, periode }: ProgressSte
               <div className="step-content">
                 <div className="step-header">
                   <h3 className="step-label">{step.label}</h3>
-                  <span className={`step-status ${step.status}`}>
-                    {step.status === "approved" ? "Disetujui" : "Menunggu"}
-                  </span>
+                  <Stamp status={step.status} />
                 </div>
                 <p className="step-name">{step.nama}</p>
                 {step.tanggal && (

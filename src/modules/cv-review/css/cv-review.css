@@ -96,7 +96,8 @@
   }
 
   &-title {
-    font-size: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--text-secondary);
     margin: 0;
@@ -104,6 +105,7 @@
   }
 
   &-sub {
+    font-family: var(--font-mono);
     font-size: 0.72rem;
     color: var(--text-muted);
     margin: 2px 0 0;
@@ -142,6 +144,8 @@
       justify-content: center;
       flex-shrink: 0;
       color: var(--clr-purple);
+      font-family: var(--font-mono);
+      font-size: 12px;
       box-shadow: 0 0 8px rgba(192, 132, 252, 0.05);
     }
 
@@ -315,11 +319,12 @@
   }
 
   &-title {
-    font-size: 1.65rem;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
     color: var(--text-primary);
     margin: 0;
-    letter-spacing: -0.3px;
+    letter-spacing: -0.02em;
   }
 
   &-desc {
@@ -495,7 +500,8 @@
 }
 
 .upload-file-size {
-  font-size: 12px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
   color: var(--text-muted);
 }
 
@@ -653,10 +659,12 @@
 }
 
 .loading-title {
-  font-size: 1.35rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+  font-weight: 600;
   color: var(--text-primary);
   margin: 0;
+  letter-spacing: -0.01em;
 }
 
 .loading-substage-tip {
@@ -705,6 +713,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    font-family: var(--font-mono);
     font-size: 12px;
     font-weight: 600;
     color: var(--text-subdued);
@@ -756,7 +765,8 @@
 }
 
 .loading-percent {
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
   color: var(--text-muted);
   margin: 0;
   font-weight: 500;
@@ -780,10 +790,12 @@
 }
 
 .review-heading {
-  font-size: 1.65rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
   color: var(--text-primary);
   margin: 0;
+  letter-spacing: -0.02em;
 }
 
 .review-subheading {
@@ -1011,14 +1023,16 @@
 }
 
 .review-score-number {
-  font-size: 2.75rem;
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 2.5rem;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -1px;
+  letter-spacing: -0.03em;
 }
 
 .review-score-max {
-  font-size: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
   color: var(--text-subdued);
   font-weight: 500;
 }
@@ -1142,9 +1156,11 @@
 }
 
 .review-mini-score {
-  font-size: 2.25rem;
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
   line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .review-mini-label {
@@ -1172,10 +1188,12 @@
 }
 
 .review-grammar-number {
-  font-size: 2.25rem;
-  font-weight: 800;
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
   color: var(--clr-red);
   line-height: 1;
+  letter-spacing: -0.03em;
 }
 
 .review-grammar-label {
@@ -1228,7 +1246,8 @@
 }
 
 .review-stat-value {
-  font-size: 14.5px;
+  font-family: var(--font-mono);
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -1272,8 +1291,9 @@
 }
 
 .suggestion-section-title {
+  font-family: var(--font-display);
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-primary);
   margin: 0;
 }
@@ -1284,7 +1304,8 @@
   background: rgba(192, 132, 252, 0.15);
   border: 1px solid rgba(192, 132, 252, 0.3);
   color: var(--clr-purple);
-  font-size: 12px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
   font-weight: 600;
 }
 

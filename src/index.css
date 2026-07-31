@@ -1,10 +1,14 @@
 :root {
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* ── Type ── */
+  --font-display: 'Space Grotesk Variable', 'Segoe UI', sans-serif;
+  --font-body: 'Instrument Sans Variable', system-ui, 'Segoe UI', sans-serif;
+  --font-mono: 'Spline Sans Mono Variable', ui-monospace, Consolas, monospace;
 
   /* ── Colors ── */
   --clr-purple: #c084fc;
   --clr-purple-dark: #a855f7;
+  --clr-violet-deep: #7c3aed;
+  --tint-stamp: rgba(168, 85, 247, 0.16);
   --clr-green: #22c55e;
   --clr-red: #f87171;
   --clr-yellow: #facc15;
@@ -41,7 +45,7 @@
   --shadow-btn: 0 4px 20px rgba(168, 85, 247, 0.25);
   --shadow-btn-hover: 0 6px 28px rgba(168, 85, 247, 0.4);
 
-  font: 16px/1.5 var(--sans);
+  font: 16px/1.5 var(--font-body);
   color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -65,4 +69,18 @@ body {
 
 p {
   margin: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--clr-purple);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

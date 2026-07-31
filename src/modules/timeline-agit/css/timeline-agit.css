@@ -10,8 +10,10 @@
 }
 
 .timeline-title {
-  font-size: 1.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
+  letter-spacing: -0.02em;
   color: #e8e8ea;
   margin: 0 0 6px;
 }
@@ -56,8 +58,10 @@
 }
 
 .timeline-phase-title {
-  font-size: 1.125rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: #e8e8ea;
   margin: 0;
 }
@@ -132,10 +136,11 @@
 
 .timeline-step-date {
   display: inline-block;
+  font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.08em;
   color: #6b7280;
   margin-bottom: 6px;
 }

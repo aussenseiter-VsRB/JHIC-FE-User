@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { Bot, CheckCircle, Lightbulb, FileText, Info } from "lucide-react";
 
-interface Notification {
+export interface Notification {
   id: number;
   type: "info" | "success" | "tip" | "warning";
   icon: string;

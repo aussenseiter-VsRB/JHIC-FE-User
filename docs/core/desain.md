@@ -13,6 +13,20 @@ Aplikasi ini adalah **AI chatbot interface** bernama **Nexxa AI** dengan dark-fi
 
 > Latar belakang gelap pekat (`#18181b`), surface semi-transparan dengan backdrop blur, border subtle, dan bayangan lembut. Tujuan: terasa modern, immersif, fokus ke konten percakapan.
 
+### Type system (signature direction: "arsip sekolah yang berdenyut")
+
+- **Display — Space Grotesk Variable** (`--font-display`): greeting, judul halaman, wordmark. Dipakai dengan restraint (hanya ukuran besar).
+- **Body — Instrument Sans Variable** (`--font-body`): teks panjang bahasa Indonesia (default).
+- **Utility "arsip" — Spline Sans Mono Variable** (`--font-mono`): semua data/rekor — nomor surat, tanggal, timestamp, persen, nama model AI, char counter, badge status, kbd hint. Prinsip: "rekor administrasi dicetak dengan mesin ketik".
+- Font dimuat via `@fontsource-variable/*` (bundle lokal, tanpa CDN).
+
+### Signature element: stempel persetujuan (Dashboard PKL)
+
+Status persetujuan di `ProgressStepper` direpresentasikan sebagai **stempel elips** ala cap stempel Indonesia yang "tercap" (scale overshoot + rotasi via framer-motion):
+- `approved` → stempel tinta ungu `DISETUJUI` (`--tint-stamp` background, glow halus).
+- `pending` → stempel outline putus-putus `MENUNGGU`.
+- Komponen: `src/modules/dashboard-pkl/components/Stamp.tsx`. Hormati `prefers-reduced-motion` via `useReducedMotion`.
+
 ---
 
 ## Dependencies (terpasang & digunakan)
@@ -25,6 +39,9 @@ Aplikasi ini adalah **AI chatbot interface** bernama **Nexxa AI** dengan dark-fi
 | `framer-motion` | ^12.43.0 | Semua animasi: page transition, stagger, spring, hover/tap, AnimatePresence |
 | `lucide-react` | ^1.27.0 | Semua ikon di seluruh aplikasi (icons sebagai komponen) |
 | `postcss-nested` | ^8.0.0 | Nesting CSS (`.parent { &-child {} }`) di file `.css` |
+| `@fontsource-variable/space-grotesk` | ^5.x | Display font (bundled, variable) |
+| `@fontsource-variable/instrument-sans` | ^5.x | Body font (bundled, variable) |
+| `@fontsource-variable/spline-sans-mono` | ^5.x | Utility/mono font (bundled, variable) |
 
 ### Tidak digunakan (tapi terinstal di devDependencies)
 - `typescript` ~6.0 — type checking
@@ -96,6 +113,8 @@ Semua animasi dikelola oleh **framer-motion** — tidak ada CSS transition/anima
 
 --clr-purple: #c084fc      (primary accent)
 --clr-purple-dark: #a855f7
+--clr-violet-deep: #7c3aed  (depth gradient / aurora)
+--tint-stamp: rgba(168,85,247,0.16)  (ink stempel)
 --clr-green: #22c55e       (success)
 --clr-red: #f87171         (error)
 --clr-yellow: #facc15      (warning)
@@ -137,9 +156,9 @@ src/modules/{moduleName}/
 
 | Module | Route | Status |
 |---|---|---|
-| `nexxa/` | `/` (index) | Complete — Chat AI utama dengan greeting, input, messages, shortcut chips, model selector |
+| `nexxa/` | `/` (index) | Complete — Chat AI utama dengan greeting, input, messages, shortcut chips, model selector + ambient aurora |
 | `search/` | `/search` | Complete — Pencarian riwayat konsultasi dengan highlight & filter |
-| `dashboard-pkl/` | `/dashboard-pkl` | Placeholder — `function DashboardPkl() { return <div>Dashboard PKL</div> }` |
+| `dashboard-pkl/` | `/dashboard-pkl` | Complete — Status surat PKL: NotificationFeed + ProgressStepper (signature: stempel `Stamp.tsx`) |
 | `cv-review/` | `/cv-review` | Complete — Upload CV → Loading scanner → Review dashboard + suggestions |
 | `timeline-agit/` | `/timeline-agit` | Complete — Timeline interaktif dengan animated phase cards |
 

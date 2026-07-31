@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { useOutletContext } from "react-router-dom";
 import { LayoutDashboard, FileText, CalendarClock } from "lucide-react";
@@ -42,11 +42,14 @@ const fadeUp: Variants = {
 function Nexxa() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isSending, setIsSending] = useState(false);
+  const [lastReset, setLastReset] = useState(0);
   const { resetKey, onOpenSettings, font } = useOutletContext<ChatContext>();
+  const prefersReducedMotion = useReducedMotion();
 
-  useEffect(() => {
+  if (lastReset !== resetKey) {
+    setLastReset(resetKey);
     setMessages([]);
-  }, [resetKey]);
+  }
 
   function handleSend(text: string) {
     setIsSending(true);
@@ -65,6 +68,19 @@ function Nexxa() {
       {messages.length === 0 ? (
         <>
           <ChatHeader onOpenSettings={onOpenSettings} />
+          <motion.div
+            className="chat-aurora"
+            aria-hidden="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, delay: 0.2 }}
+          >
+            <motion.div
+              style={{ position: "absolute", inset: 0 }}
+              animate={prefersReducedMotion ? undefined : { scale: [1, 1.08, 1] }}
+              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </motion.div>
           <motion.div
             className="main-center"
             variants={stagger}
