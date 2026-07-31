@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar/Sidebar";
+import BottomBar from "../components/bottombar/BottomBar";
 import SettingsModal from "../components/settings/SettingsModal";
-import { Menu } from "lucide-react";
 import "./layout.css";
 
 type Font = "sans-serif" | "serif";
@@ -75,16 +75,7 @@ function Layout() {
       {isMobile && mobileSidebarOpen && (
         <div className="sidebar-backdrop" onClick={handleMobileClose} />
       )}
-      {isMobile && (
-        <button
-          type="button"
-          className="mobile-menu-btn"
-          onClick={() => setMobileSidebarOpen(true)}
-          aria-label="Buka sidebar"
-        >
-          <Menu size={20} />
-        </button>
-      )}
+      {isMobile && <BottomBar onOpenSidebar={() => setMobileSidebarOpen(true)} />}
       <main className="main-content">
         <Outlet context={{ resetKey, onOpenSettings: handleOpenSettings, font } satisfies ChatContext} />
       </main>
