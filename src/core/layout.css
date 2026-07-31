@@ -302,8 +302,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 44px;
+    height: 44px;
     border-radius: 8px;
     border: 1px solid #27272a;
     background: #141416;
@@ -316,7 +316,12 @@
     color: #e8e8ea;
   }
 
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+
   .main-content {
-    padding-left: 52px;
+    padding-left: 60px;
   }
 }

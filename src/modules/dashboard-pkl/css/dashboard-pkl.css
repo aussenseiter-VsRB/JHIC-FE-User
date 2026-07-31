@@ -546,6 +546,27 @@
   }
 }
 
+@media (max-width: 640px) {
+  .page-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .step-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .notification-item {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .progress-meta {
+    padding: 12px;
+  }
+}
+
 @media (max-width: 480px) {
   .page-header h1 {
     font-size: 1.35rem;
@@ -575,12 +596,6 @@
   .notification-icon {
     width: 36px;
     height: 36px;
-  }
-
-  .step-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
   }
 
   .step-notes {

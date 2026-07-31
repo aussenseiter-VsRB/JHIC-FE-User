@@ -206,6 +206,16 @@
   }
 }
 
+@media (max-width: 640px) {
+  .search-header {
+    padding: 20px 24px 12px;
+  }
+
+  .search-results {
+    padding: 0 24px 16px;
+  }
+}
+
 @media (max-width: 480px) {
   .search-header {
     padding: 12px 12px 8px;

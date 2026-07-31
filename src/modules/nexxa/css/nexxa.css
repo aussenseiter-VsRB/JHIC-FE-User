@@ -666,6 +666,23 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
+  .chat-aurora {
+    width: 380px;
+    height: 300px;
+    overflow: hidden;
+  }
+
+  .chat-aurora::before {
+    width: 280px;
+    height: 180px;
+  }
+
+  .chat-aurora::after {
+    width: 200px;
+    height: 150px;
+    right: -24px;
+  }
+
   .main-center {
     padding: 0 16px 80px;
   }
@@ -684,6 +701,24 @@
 
   .chat-message {
     max-width: 90%;
+  }
+}
+
+@media (max-width: 640px) {
+  .main-center {
+    padding: 0 12px 72px;
+  }
+
+  .chat-messages {
+    padding: 10px 12px 112px;
+  }
+
+  .chat-input-bottom {
+    padding: 6px 12px 12px;
+  }
+
+  .chat-input-box {
+    border-radius: 14px;
   }
 }
 
