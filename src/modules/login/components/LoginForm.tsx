@@ -2,21 +2,20 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { User, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 
 interface LoginFormProps {
   headline: string;
   subText: string;
-  emailLabel: string;
-  emailPlaceholder: string;
+  usernameLabel: string;
+  usernamePlaceholder: string;
   passwordLabel: string;
   passwordPlaceholder: string;
   forgotLabel: string;
   submitLabel: string;
-  errorRequiredEmail: string;
-  errorInvalidEmail: string;
+  errorRequiredUsername: string;
   errorRequiredPassword: string;
-  onSubmit: (email: string, password: string) => Promise<void>;
+  onSubmit: (username: string, password: string) => Promise<void>;
 }
 
 const stagger: Variants = {
@@ -38,26 +37,24 @@ const fadeUp: Variants = {
 function LoginForm({
   headline,
   subText,
-  emailLabel,
-  emailPlaceholder,
+  usernameLabel,
+  usernamePlaceholder,
   passwordLabel,
   passwordPlaceholder,
   forgotLabel,
   submitLabel,
-  errorRequiredEmail,
-  errorInvalidEmail,
+  errorRequiredUsername,
   errorRequiredPassword,
   onSubmit,
 }: LoginFormProps) {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   function validate(): string {
-    if (!email.trim()) return errorRequiredEmail;
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return errorInvalidEmail;
+    if (!username.trim()) return errorRequiredUsername;
     if (!password) return errorRequiredPassword;
     return "";
   }
@@ -72,7 +69,7 @@ function LoginForm({
     setError("");
     setIsSubmitting(true);
     try {
-      await onSubmit(email.trim(), password);
+      await onSubmit(username.trim(), password);
     } catch {
       setError("Login gagal. Silakan coba lagi.");
     } finally {
@@ -96,20 +93,20 @@ function LoginForm({
         noValidate
       >
         <motion.div className="login-field" variants={fadeUp}>
-          <label className="login-label" htmlFor="login-email">
-            {emailLabel}
+          <label className="login-label" htmlFor="login-username">
+            {usernameLabel}
           </label>
           <div className="login-input-wrap">
-            <Mail size={18} className="login-input-icon" aria-hidden="true" />
+            <User size={18} className="login-input-icon" aria-hidden="true" />
             <input
-              id="login-email"
+              id="login-username"
               className="login-input"
-              type="email"
-              autoComplete="email"
-              placeholder={emailPlaceholder}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              aria-label={emailLabel}
+              type="text"
+              autoComplete="username"
+              placeholder={usernamePlaceholder}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              aria-label={usernameLabel}
             />
           </div>
         </motion.div>

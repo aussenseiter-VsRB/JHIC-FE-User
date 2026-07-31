@@ -494,13 +494,7 @@
   }
 
   .showcase-panel {
-    min-height: 420px;
-    padding: 32px 24px;
-  }
-
-  .showcase-art {
-    transform: scale(0.82);
-    margin: 0;
+    display: none;
   }
 }
 
@@ -515,18 +509,5 @@
 
   .login-panel {
     padding: 24px 16px;
-  }
-
-  .showcase-panel {
-    min-height: 380px;
-    padding: 28px 16px;
-  }
-
-  .showcase-art {
-    transform: scale(0.7);
-  }
-
-  .showcase-card {
-    padding: 16px 18px;
   }
 }

@@ -9,9 +9,9 @@ import "./css/login.css";
 function Login() {
   const navigate = useNavigate();
 
-  async function handleSubmit() {
+  async function handleSubmit(_username: string, _password: string) {
     await new Promise<void>((resolve) => setTimeout(resolve, 1200));
-    navigate("/");
+    navigate("/home");
   }
 
   return (
@@ -33,14 +33,13 @@ function Login() {
             <LoginForm
               headline={data.headline}
               subText={data.subText}
-              emailLabel={data.emailLabel}
-              emailPlaceholder={data.emailPlaceholder}
+              usernameLabel={data.usernameLabel}
+              usernamePlaceholder={data.usernamePlaceholder}
               passwordLabel={data.passwordLabel}
               passwordPlaceholder={data.passwordPlaceholder}
               forgotLabel={data.forgotLabel}
               submitLabel={data.submitLabel}
-              errorRequiredEmail={data.errorRequiredEmail}
-              errorInvalidEmail={data.errorInvalidEmail}
+              errorRequiredUsername={data.errorRequiredUsername}
               errorRequiredPassword={data.errorRequiredPassword}
               onSubmit={handleSubmit}
             />
