@@ -1,0 +1,19 @@
+{
+  "appName": "Nexxa AI",
+  "urlBar": "https://nexxa.ai",
+  "headline": "Welcome Back",
+  "subText": "Masuk untuk melanjutkan konsultasi AI, review CV, dan timeline PKL-mu.",
+  "emailLabel": "Email",
+  "emailPlaceholder": "nama@sekolah.sch.id",
+  "passwordLabel": "Password",
+  "passwordPlaceholder": "Masukkan password",
+  "forgotLabel": "Forgot password?",
+  "submitLabel": "Login",
+  "errorRequiredEmail": "Email wajib diisi.",
+  "errorInvalidEmail": "Format email tidak valid.",
+  "errorRequiredPassword": "Password wajib diisi.",
+  "showcaseNames": ["Amelia", "Bima", "Citra"],
+  "showcaseHeadline": "AI Revolutionizing the way we create, render, and experience content.",
+  "showcaseLabel": "Creating",
+  "showcaseDescription": "Create design brief with AI voice command to make awesome 3D images that suits your needs."
+}
