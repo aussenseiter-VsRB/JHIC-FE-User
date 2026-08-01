@@ -55,13 +55,7 @@
 
 .bottom-bar-tab--active {
   color: #c084fc;
-  background: rgba(168, 85, 247, 0.1);
-  border-color: rgba(168, 85, 247, 0.28);
-  border-top-color: #a855f7;
-}
-
-.bottom-bar-tab--active svg {
-  filter: drop-shadow(0 0 8px rgba(192, 132, 252, 0.4));
+  background: rgba(168, 85, 247, 0.08);
 }
 
 .bottom-bar-label {
@@ -77,15 +71,29 @@
   text-overflow: ellipsis;
 }
 
-.bottom-bar-edge {
-  position: absolute;
-  top: -2px;
-  left: 4px;
-  right: 4px;
-  height: 2px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, #a855f7, #c084fc);
-  box-shadow: 0 0 12px rgba(192, 132, 252, 0.6);
+/* ── Primary tab (Konsultasi FAB) ── */
+.bottom-bar-tab--primary {
+  background: transparent;
+  border: none;
+  color: #c084fc;
+  padding-top: 0;
+  justify-content: flex-end;
+  padding-bottom: 2px;
+}
+
+.bottom-bar-fab {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c084fc, #7c3aed);
+  color: #fff;
+  margin-top: -20px;
+  box-shadow:
+    0 6px 20px rgba(168, 85, 247, 0.45),
+    0 0 0 4px rgba(20, 20, 22, 0.92),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 @media (min-width: 480px) {

@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar/Sidebar";
 import BottomBar from "../components/bottombar/BottomBar";
 import SettingsModal from "../components/settings/SettingsModal";
@@ -20,6 +20,7 @@ function Layout() {
   const [resetKey, setResetKey] = useState(0);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [font, setFont] = useState<Font>("sans-serif");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 768px)");
@@ -62,6 +63,12 @@ function Layout() {
     setFont(f);
   }, []);
 
+  const handleLogout = useCallback(() => {
+    setSettingsOpen(false);
+    setResetKey((k) => k + 1);
+    navigate("/login");
+  }, [navigate]);
+
   return (
     <div className="app-layout">
       <Sidebar
@@ -82,6 +89,7 @@ function Layout() {
       <SettingsModal
         open={settingsOpen}
         onClose={handleCloseSettings}
+        onLogout={handleLogout}
         font={font}
         onFontChange={handleFontChange}
       />

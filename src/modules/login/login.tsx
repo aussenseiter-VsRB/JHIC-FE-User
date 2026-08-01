@@ -46,12 +46,7 @@ function Login() {
           </div>
         </motion.section>
 
-        <ShowcasePanel
-          headline={data.showcaseHeadline}
-          label={data.showcaseLabel}
-          description={data.showcaseDescription}
-          avatarNames={data.showcaseNames}
-        />
+        <ShowcasePanel />
       </div>
     </div>
   );

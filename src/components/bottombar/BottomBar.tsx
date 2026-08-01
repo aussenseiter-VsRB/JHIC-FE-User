@@ -17,44 +17,35 @@ interface BottomBarItemProps {
   Icon: typeof FileText;
   label: string;
   route: string;
+  variant?: "default" | "primary";
 }
 
-const tabSpring = { type: "spring", stiffness: 320, damping: 22 } as const;
-
-function BottomBarItem({ Icon, label, route }: BottomBarItemProps) {
-  const reducedMotion = useReducedMotion();
+function BottomBarItem({ Icon, label, route, variant = "default" }: BottomBarItemProps) {
+  const primary = variant === "primary";
 
   return (
-    <NavLink to={route} end={route === "/"} className="bottom-bar-item" aria-label={label}>
+    <NavLink to={route} end={route === "/home"} className="bottom-bar-item" aria-label={label}>
       {({ isActive }) => (
-        <motion.div
-          className={`bottom-bar-tab${isActive ? " bottom-bar-tab--active" : ""}`}
-          initial={false}
-          animate={{ y: isActive && !reducedMotion ? -12 : 0 }}
-          whileHover={reducedMotion ? undefined : { y: isActive ? -14 : -4 }}
-          transition={tabSpring}
+        <div
+          className={`bottom-bar-tab${isActive ? " bottom-bar-tab--active" : ""}${
+            primary ? " bottom-bar-tab--primary" : ""
+          }`}
         >
-          {isActive &&
-            (reducedMotion ? (
-              <span className="bottom-bar-edge" />
-            ) : (
-              <motion.span
-                layoutId="bottom-bar-active-edge"
-                className="bottom-bar-edge"
-                transition={tabSpring}
-              />
-            ))}
-          <Icon size={22} strokeWidth={1.8} />
+          {primary ? (
+            <span className="bottom-bar-fab">
+              <Icon size={24} strokeWidth={2} />
+            </span>
+          ) : (
+            <Icon size={22} strokeWidth={1.8} />
+          )}
           <span className="bottom-bar-label">{label}</span>
-        </motion.div>
+        </div>
       )}
     </NavLink>
   );
 }
 
 function MenuTab({ onOpenSidebar }: { onOpenSidebar: () => void }) {
-  const reducedMotion = useReducedMotion();
-
   return (
     <button
       type="button"
@@ -62,15 +53,10 @@ function MenuTab({ onOpenSidebar }: { onOpenSidebar: () => void }) {
       onClick={onOpenSidebar}
       aria-label="Buka sidebar"
     >
-      <motion.div
-        className="bottom-bar-tab"
-        initial={false}
-        whileHover={reducedMotion ? undefined : { y: -4 }}
-        transition={tabSpring}
-      >
+      <div className="bottom-bar-tab">
         <Menu size={22} strokeWidth={1.8} />
         <span className="bottom-bar-label">Menu</span>
-      </motion.div>
+      </div>
     </button>
   );
 }
@@ -88,7 +74,7 @@ function BottomBar({ onOpenSidebar }: BottomBarProps) {
       >
         <BottomBarItem Icon={FileText} label="CV Review" route="/cv-review" />
         <BottomBarItem Icon={LayoutDashboard} label="Dashboard PKL" route="/dashboard-pkl" />
-        <BottomBarItem Icon={MessageSquare} label="Konsultasi" route="/" />
+        <BottomBarItem Icon={MessageSquare} label="Konsultasi" route="/home" variant="primary" />
         <BottomBarItem Icon={CalendarClock} label="Timeline Agit" route="/timeline-agit" />
         <MenuTab onOpenSidebar={onOpenSidebar} />
       </motion.div>

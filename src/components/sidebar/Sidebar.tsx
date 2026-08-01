@@ -39,7 +39,7 @@ const navIconMap: Record<string, typeof Search> = {
 
 const navRouteMap: Record<string, string> = {
   Cari: "/search",
-  Konsultasi: "/",
+  Konsultasi: "/home",
 };
 
 const alatIconMap: Record<string, typeof Search> = {
@@ -127,7 +127,7 @@ function Sidebar({ collapsed, mobileOpen, onToggle, onResetChat, onMobileClose, 
             className="new-chat-btn"
             whileHover="hover"
             whileTap={{ scale: 0.98 }}
-            onClick={() => { onResetChat(); navigate("/"); onMobileClose(); }}
+            onClick={() => { onResetChat(); navigate("/home"); onMobileClose(); }}
           >
             <motion.span
               style={{ display: "inline-flex" }}
