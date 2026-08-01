@@ -9,9 +9,9 @@ import "./css/login.css";
 function Login() {
   const navigate = useNavigate();
 
-  async function handleSubmit(_username: string, _password: string) {
+  async function handleSubmit() {
     await new Promise<void>((resolve) => setTimeout(resolve, 1200));
-    navigate("/home");
+    navigate("/onboarding");
   }
 
   return (

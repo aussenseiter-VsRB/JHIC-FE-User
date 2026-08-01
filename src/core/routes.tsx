@@ -2,6 +2,7 @@ import type { RouteObject } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import Layout from "./layout";
 import Login from "../modules/login/login";
+import Onboarding from "../modules/onboarding/onboarding";
 import Nexxa from "../modules/nexxa/nexxa";
 import Search from "../modules/search/search";
 import DashboardPkl from "../modules/dashboard-pkl/dashboard-pkl";
@@ -11,6 +12,7 @@ import TimelineAgit from "../modules/timeline-agit/timeline-agit";
 export const routes: RouteObject[] = [
   { index: true, element: <Navigate to="/login" replace /> },
   { path: "/login", element: <Login /> },
+  { path: "/onboarding", element: <Onboarding /> },
   {
     element: <Layout />,
     children: [
