@@ -70,8 +70,8 @@ function LoginForm({
     setIsSubmitting(true);
     try {
       await onSubmit(username.trim(), password);
-    } catch {
-      setError("Login gagal. Silakan coba lagi.");
+    } catch (err) {
+      setError(err instanceof Error && err.message ? err.message : "Login gagal. Silakan coba lagi.");
     } finally {
       setIsSubmitting(false);
     }
@@ -102,7 +102,7 @@ function LoginForm({
               id="login-username"
               className="login-input"
               type="text"
-              autoComplete="username"
+              autoComplete="email"
               placeholder={usernamePlaceholder}
               value={username}
               onChange={(e) => setUsername(e.target.value)}

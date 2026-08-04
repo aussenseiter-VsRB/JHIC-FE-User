@@ -6,9 +6,9 @@
     "tampilan": { "label": "Tampilan" }
   },
   "akun": {
-    "username": { "label": "Username" },
+    "email": { "label": "Email" },
     "id": { "label": "ID" },
-    "namaAsli": { "label": "Nama Asli" },
+    "role": { "label": "Role" },
     "keluar": "Keluar"
   },
   "tampilan": {

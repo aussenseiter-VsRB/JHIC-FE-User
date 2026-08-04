@@ -4,13 +4,14 @@ import { Sparkles } from "lucide-react";
 import LoginForm from "./components/LoginForm";
 import ShowcasePanel from "./components/ShowcasePanel";
 import data from "./login.json";
+import { login } from "./services/loginService";
 import "./css/login.css";
 
 function Login() {
   const navigate = useNavigate();
 
-  async function handleSubmit() {
-    await new Promise<void>((resolve) => setTimeout(resolve, 1200));
+  async function handleSubmit(email: string, password: string) {
+    await login(email, password);
     navigate("/onboarding");
   }
 

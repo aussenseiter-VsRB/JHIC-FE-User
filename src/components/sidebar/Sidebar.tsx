@@ -14,6 +14,7 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import RecentItem from "./RecentItem";
 import data from "../../modules/nexxa/nexxa.json";
+import { getUser } from "../../modules/login/services/loginService";
 
 interface SidebarProps {
   collapsed: boolean;
@@ -82,6 +83,8 @@ function NavItem({ Icon, label, route, collapsed, onMobileClose }: NavItemProps)
 
 function Sidebar({ collapsed, mobileOpen, onToggle, onResetChat, onMobileClose, onOpenSettings }: SidebarProps) {
   const navigate = useNavigate();
+  const user = getUser();
+  const userName = user?.email ?? "Pengguna";
   return (
     <aside className={`sidebar${collapsed ? " sidebar--collapsed" : ""}${mobileOpen ? " sidebar--mobile-open" : ""}`}>
       <div className="sidebar-inner">
@@ -199,10 +202,10 @@ function Sidebar({ collapsed, mobileOpen, onToggle, onResetChat, onMobileClose, 
               whileHover={{ scale: 1.1, rotate: -5 }}
               transition={{ duration: 0.2 }}
             >
-              {data.userName.charAt(0).toUpperCase()}
+              {userName.charAt(0).toUpperCase()}
             </motion.div>
             <div className="user-info">
-              <span className="user-name">{data.userName}</span>
+              <span className="user-name">{userName}</span>
             </div>
             <motion.button
               type="button"

@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, User, Palette, LogOut } from "lucide-react";
 import data from "./settingsData.json";
+import { getUser } from "../../modules/login/services/loginService";
 import "./settings.css";
 
 type Section = "akun" | "tampilan";
@@ -12,9 +13,6 @@ interface SettingsModalProps {
   open: boolean;
   onClose: () => void;
   onLogout?: () => void;
-  initialUsername?: string;
-  userId?: string;
-  namaAsli?: string;
   font: Font;
   onFontChange: (font: Font) => void;
 }
@@ -44,15 +42,15 @@ function SettingsModal({
   open,
   onClose,
   onLogout,
-  initialUsername = "Pengguna",
-  userId = "USR-001",
-  namaAsli = "Pengguna",
   font,
   onFontChange,
 }: SettingsModalProps) {
   const [activeSection, setActiveSection] = useState<Section>("akun");
-  const [username, setUsername] = useState(initialUsername);
   const [theme, setTheme] = useState<Theme>("dark");
+  const user = getUser();
+  const email = user?.email ?? "-";
+  const userId = user?.id ?? "-";
+  const role = user?.role ?? "-";
 
   const handleClose = useCallback(() => {
     setActiveSection("akun");
@@ -118,13 +116,13 @@ function SettingsModal({
                   <div className="settings-form">
                     <div className="settings-field">
                       <label className="settings-field-label">
-                        {data.akun.username.label}
+                        {data.akun.email.label}
                       </label>
                       <input
-                        className="settings-input"
+                        className="settings-input settings-input--readonly"
                         type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
+                        value={email}
+                        readOnly
                       />
                     </div>
                     <div className="settings-field">
@@ -140,12 +138,12 @@ function SettingsModal({
                     </div>
                     <div className="settings-field">
                       <label className="settings-field-label">
-                        {data.akun.namaAsli.label}
+                        {data.akun.role.label}
                       </label>
                       <input
                         className="settings-input settings-input--readonly"
                         type="text"
-                        value={namaAsli}
+                        value={role}
                         readOnly
                       />
                     </div>

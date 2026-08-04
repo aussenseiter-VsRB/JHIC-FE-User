@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import { useOutletContext } from "react-router-dom";
 import { LayoutDashboard, FileText, CalendarClock } from "lucide-react";
@@ -9,6 +9,7 @@ import Greeting from "./components/Greeting";
 import ChatInput from "./components/ChatInput";
 import ChatMessage from "./components/ChatMessage";
 import ShortcutChip from "./components/ShortcutChip";
+import Orb from "../../components/orb/Orb";
 import data from "./nexxa.json";
 import "./css/nexxa.css";
 
@@ -44,7 +45,6 @@ function Nexxa() {
   const [isSending, setIsSending] = useState(false);
   const [lastReset, setLastReset] = useState(0);
   const { resetKey, onOpenSettings, font } = useOutletContext<ChatContext>();
-  const prefersReducedMotion = useReducedMotion();
 
   if (lastReset !== resetKey) {
     setLastReset(resetKey);
@@ -65,22 +65,27 @@ function Nexxa() {
 
   return (
     <div className="chat-container" data-chat-font={font}>
+      <AnimatePresence>
+        {messages.length === 0 && (
+          <motion.div
+            className="chat-orb-bg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <Orb
+              hoverIntensity={0.5}
+              rotateOnHover={true}
+              hue={0}
+              backgroundColor="#0a0a0f"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       {messages.length === 0 ? (
         <>
           <ChatHeader onOpenSettings={onOpenSettings} />
-          <motion.div
-            className="chat-aurora"
-            aria-hidden="true"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: 0.2 }}
-          >
-            <motion.div
-              style={{ position: "absolute", inset: 0 }}
-              animate={prefersReducedMotion ? undefined : { scale: [1, 1.08, 1] }}
-              transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </motion.div>
           <motion.div
             className="main-center"
             variants={stagger}
