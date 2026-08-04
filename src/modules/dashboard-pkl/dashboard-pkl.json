@@ -1,93 +1,52 @@
 {
   "pageHeader": {
     "title": "Dashboard PKL",
-    "description": "Pantau status surat PKL dan notifikasi dari Nexxa AI."
+    "description": "Ajukan surat PKL dan pantau status persetujuan dari guru."
   },
-  "pkl": {
-    "nomorSurat": "SK-PKL/023/2026",
-    "namaSiswa": "Ahmad Fauzi",
-    "perusahaan": "PT Teknologi Nusantara",
-    "periode": "15 Jan – 15 Mar 2026",
-    "steps": [
-      {
-        "key": "waliKelas",
-        "label": "Wali Kelas",
-        "nama": "Bpk. Hendra Wijaya, S.Pd",
-        "status": "approved",
-        "tanggal": "12 Jan 2026",
-        "catatan": "Surat disetujui, pastikan kelengkapan dokumen lampiran."
-      },
-      {
-        "key": "guruBK",
-        "label": "Guru BK",
-        "nama": "Ibu Sari Dewi, M.Psi",
-        "status": "approved",
-        "tanggal": "14 Jan 2026",
-        "catatan": "Disetujui. Konsultasi karir telah selesai."
-      },
-      {
-        "key": "kesiswaan",
-        "label": "Kesiswaan",
-        "nama": "Bpk. Rudi Santoso, S.Pd",
-        "status": "pending",
-        "tanggal": null,
-        "catatan": null
-      },
-      {
-        "key": "kaprodi",
-        "label": "Kaprodi",
-        "nama": "Ibu Dr. Lestari, M.T",
-        "status": "pending",
-        "tanggal": null,
-        "catatan": null
-      }
-    ]
+  "statusLabels": {
+    "pending": "Menunggu",
+    "accepted": "Disetujui",
+    "rejected": "Ditolak",
+    "needs_further_action": "Perlu Perbaikan",
+    "cancelled": "Dibatalkan"
   },
-  "notifications": [
-    {
-      "id": 1,
-      "type": "info",
-      "icon": "Bot",
-      "title": "Surat PKL kamu sedang diproses",
-      "message": "Hei Ahmad! Surat PKL kamu sedang dalam antrian review kesiswaan. Estimasi selesai dalam 2–3 hari kerja.",
-      "time": "2 jam lalu",
-      "read": false
+  "empty": {
+    "title": "Belum Ada Pengajuan PKL",
+    "description": "Kamu belum memiliki surat PKL. Ajukan sekarang untuk memulai proses persetujuan.",
+    "cta": "Ajukan Surat PKL"
+  },
+  "list": {
+    "title": "Pengajuan Saya"
+  },
+  "create": {
+    "title": "Ajukan Surat PKL",
+    "description": "Lengkapi data berikut untuk membuat pengajuan baru.",
+    "fields": {
+      "company": "Perusahaan",
+      "companyPlaceholder": "PT Maju Jaya",
+      "location": "Lokasi",
+      "locationPlaceholder": "Jl. Merdeka No. 1, Jakarta",
+      "startDate": "Tanggal Mulai",
+      "endDate": "Tanggal Selesai",
+      "description": "Deskripsi",
+      "descriptionPlaceholder": "PKL di bagian IT selama 2 bulan"
     },
-    {
-      "id": 2,
-      "type": "success",
-      "icon": "CheckCircle",
-      "title": "Guru BK telah menyetujui",
-      "message": "Ibu Sari Dewi telah menyetujui surat PKL kamu pada 14 Jan 2026. Langkah selanjutnya adalah review kesiswaan.",
-      "time": "kemarin",
-      "read": false
-    },
-    {
-      "id": 3,
-      "type": "success",
-      "icon": "CheckCircle",
-      "title": "Wali kelas telah menyetujui",
-      "message": "Bpk. Hendra Wijaya menyetujui surat PKL kamu pada 12 Jan 2026. Pastikan dokumen lampiran sudah lengkap ya.",
-      "time": "3 hari lalu",
-      "read": true
-    },
-    {
-      "id": 4,
-      "type": "tip",
-      "icon": "Lightbulb",
-      "title": "Tips dari Nexxa AI",
-      "message": "Sambil menunggu proses approval, kamu bisa mulai siapkan logbook PKL dan memperkenalkan diri ke pembimbing industri.",
-      "time": "5 hari lalu",
-      "read": true
-    },
-    {
-      "id": 5,
-      "type": "info",
-      "icon": "FileText",
-      "title": "Surat PKL berhasil diunggah",
-      "message": "Surat PKL dengan nomor SK-PKL/023/2026 telah berhasil dikirim ke sistem pada 10 Jan 2026.",
-      "time": "1 minggu lalu",
-      "read": true
-    }
-  ]
+    "submit": "Kirim Pengajuan",
+    "cancel": "Batal",
+    "errorDate": "Tanggal selesai harus setelah tanggal mulai."
+  },
+  "cancelAction": {
+    "title": "Batalkan Pengajuan",
+    "description": "Masukkan alasan pembatalan. Pengajuan hanya bisa dibatalkan saat status Menunggu atau Perlu Perbaikan.",
+    "reasonPlaceholder": "Salah memasukkan nama perusahaan",
+    "submit": "Batalkan Pengajuan",
+    "back": "Kembali"
+  },
+  "feed": {
+    "pendingMessage": "Surat PKL sedang menunggu persetujuan.",
+    "approved": "telah menyetujui surat PKL kamu.",
+    "rejected": "menolak surat PKL kamu.",
+    "needsAction": "meminta perbaikan pada surat PKL kamu.",
+    "cancelled": "Surat PKL kamu telah dibatalkan."
+  }
 }

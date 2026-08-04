@@ -1,3 +1,6 @@
+import { request } from "../../../api/client";
+import { getToken } from "../../login/services/loginService";
+
 export interface SuggestionItem {
   icon: "check" | "warning" | "error";
   title: string;
@@ -48,127 +51,150 @@ export const LOADING_STAGES = [
   "Mengevaluasi tata bahasa & kuantifikasi hasil...",
 ];
 
-export async function analyzeCv(): Promise<ReviewResult> {
-  await new Promise((resolve) => setTimeout(resolve, 3600));
+export class CvReviewError extends Error {
+  status: number;
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
+interface BackendAuditSummary {
+  score: number;
+  tier_label: string;
+  grade_label: string;
+  summary_text: string;
+  key_strengths: string[];
+  key_improvements: string[];
+}
+
+interface BackendMetrics {
+  format_score: number;
+  ats_status: string;
+}
+
+interface BackendGrammarIssue {
+  text: string;
+  suggestion: string;
+  location: string;
+}
+
+interface BackendRecommendation {
+  id: number;
+  priority: string;
+  category: string;
+  section: string;
+  title: string;
+  description: string;
+  before_text?: string;
+  after_text?: string;
+  has_example: boolean;
+}
+
+interface BackendStrengthDetail {
+  id: number;
+  category: string;
+  title: string;
+  description: string;
+}
+
+interface BackendNormalizedOutput {
+  audit_summary: BackendAuditSummary;
+  metrics: BackendMetrics;
+  grammar_issues: BackendGrammarIssue[];
+  recommendations: BackendRecommendation[];
+  strengths_detail: BackendStrengthDetail[];
+}
+
+const categoryMap: Record<string, SuggestionItem["category"]> = {
+  content: "content",
+  ats_format: "ats",
+  structure: "format",
+  keywords: "content",
+};
+
+function mapSuggestions(recs: BackendRecommendation[]): SuggestionItem[] {
+  return recs.map((r) => ({
+    icon: r.priority === "Urgent" ? "error" : "warning",
+    title: r.title,
+    description: r.description,
+    category: categoryMap[r.category] ?? "content",
+    priority: r.priority === "Urgent" ? "high" : "medium",
+    beforeAfter:
+      r.has_example && (r.before_text || r.after_text)
+        ? { before: r.before_text || "", after: r.after_text || "" }
+        : undefined,
+  }));
+}
+
+function mapToReviewResult(
+  data: BackendNormalizedOutput,
+  wordCount: number,
+  pageCount: number,
+): ReviewResult {
+  const formatDetails = data.strengths_detail
+    .filter((s) => s.category === "ats_format" || s.category === "structure")
+    .map((s) => `${s.title}: ${s.description}`);
+  const atsIssues = data.strengths_detail
+    .filter((s) => s.category === "ats_format")
+    .map((s) => `${s.title}: ${s.description}`);
 
   return {
-    score: 76,
-    summary:
-      "CV Anda memiliki pondasi pengalaman yang kuat, namun membutuhkan optimalisasi pada ringkasan profil, struktur ATS, dan kuantifikasi pencapaian.",
-    strengths: [
-      "Pengalaman kerja kronologis tersusun dengan urutan rapi",
-      "Informasi kontak dasar (Email & LinkedIn) lengkap",
-      "Pendidikan dan riwayat akademis tercantum jelas",
-    ],
-    weaknesses: [
-      "Belum memiliki ringkasan profil (Professional Summary)",
-      "Penggunaan tabel pada tata letak menyulitkan parser ATS",
-      "Poin tugas kurang mengkuantifikasi hasil dengan angka/metrik",
-    ],
+    score: data.audit_summary.score,
+    summary: data.audit_summary.summary_text,
+    strengths: data.audit_summary.key_strengths,
+    weaknesses: data.audit_summary.key_improvements,
     completeness: {
       contact: true,
-      profile: false,
+      profile: true,
       experience: true,
       education: true,
       skills: true,
     },
     grammar: {
-      issues: 3,
-      details: [
-        "Penggunaan kata kerja kurang berorientasi aksi (Action Verbs)",
-        "Terdapat typo minor pada deskripsi posisi kedua",
-        "Penggunaan bahasa Indonesia & Inggris tercampur dalam satu section",
-      ],
+      issues: data.grammar_issues.length,
+      details: data.grammar_issues.map(
+        (g) => `${g.location}: ${g.suggestion || g.text}`,
+      ),
     },
     format: {
-      score: 70,
-      details: [
-        "Panjang CV 2 halaman — efisien dan ideal",
-        "Penggunaan font standar dapat dibaca dengan mudah",
-        "Menggunakan elemen tabel yang berisiko pada sistem ATS",
-      ],
+      score: data.metrics.format_score,
+      details: formatDetails,
     },
     ats: {
-      status: "needs_improvement",
-      issues: [
-        "Layout menggunakan dua kolom berbantu tabel",
-        "Header kontak berada dalam elemen grafik/tabel",
-      ],
+      status: data.metrics.ats_status === "good" ? "good" : "needs_improvement",
+      issues: atsIssues,
     },
     quickStats: {
-      pages: 2,
-      words: 580,
-      lastUpdated: "15 Juni 2026",
+      pages: pageCount,
+      words: wordCount,
+      lastUpdated: new Date().toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }),
     },
-    suggestions: [
-      {
-        icon: "error",
-        title: "Tambahkan Ringkasan Profil Profesional (Executive Summary)",
-        description:
-          "Tuliskan 2-3 kalimat di bagian atas CV yang merangkum keahlian utama, pengalaman bertahun-tahun, dan nilai tambah Anda.",
-        category: "content",
-        priority: "high",
-        beforeAfter: {
-          before: "(Bagian ringkasan profil belum ada)",
-          after:
-            "Frontend Engineer berpengalaman 3+ tahun dalam membangun web scalable berbasis React & TypeScript. Terbukti meningkatkan performa LCP hingga 40% dan mengelola UI library internal.",
-        },
-      },
-      {
-        icon: "warning",
-        title: "Kuantifikasi Pencapaian Kerja dengan Metrik / Angka",
-        description:
-          "Ganti deskripsi tugas pasif menjadi kalimat berorientasi hasil yang menggunakan angka konkret.",
-        category: "content",
-        priority: "high",
-        beforeAfter: {
-          before: "Bertanggung jawab membuat tampilan aplikasi dan memperbaiki bug.",
-          after:
-            "Mengembangkan 15+ komponen UI reusable dengan React & Tailwind, serta menyelesaikan 40+ tiket bug dengan SLA 99.5%.",
-        },
-      },
-      {
-        icon: "warning",
-        title: "Ubah Layout Berbasis Tabel Menjadi Format Standard Single/Clean Column",
-        description:
-          "Sistem ATS sering gagal memparsing teks yang berada di dalam tabel kompleks atau multi-kolom.",
-        category: "ats",
-        priority: "high",
-        beforeAfter: {
-          before: "Layout dipisah menggunakan <table> 2 kolom.",
-          after:
-            "Layout menggunakan alur linier vertikal dengan heading standar (Experience, Education, Skills).",
-        },
-      },
-      {
-        icon: "warning",
-        title: "Gunakan Action Verbs (Kata Kerja Aksi) di Setiap Poin",
-        description:
-          "Awali setiap poin pengalaman dengan kata kerja aktif seperti 'Merancang', 'Mengoptimalkan', 'Memimpin', atau 'Mengimplementasikan'.",
-        category: "grammar",
-        priority: "medium",
-        beforeAfter: {
-          before: "Melakukan integrasi API pembayaran di website.",
-          after:
-            "Mengintegrasikan 3 payment gateway (Midtrans, Xendit, Stripe) yang memproses 10,000+ transaksi bulanan.",
-        },
-      },
-      {
-        icon: "check",
-        title: "Kelengkapan Informasi Kontak Sudah Sangat Baik",
-        description:
-          "Email profesional, nomor WhatsApp, domisili, dan tautan profil LinkedIn sudah terpasang dengan rapi.",
-        category: "format",
-        priority: "low",
-      },
-      {
-        icon: "check",
-        title: "Urutan Riwayat Kerja Terstruktur (Reverse Chronological)",
-        description:
-          "Posisi terbaru ditampilkan paling atas, mempermudah recruiter membaca perjalanan karir Anda.",
-        category: "format",
-        priority: "low",
-      },
-    ],
+    suggestions: mapSuggestions(data.recommendations),
   };
+}
+
+export async function reviewCv(
+  cvText: string,
+  wordCount: number,
+  pageCount: number,
+): Promise<ReviewResult> {
+  const res = await request("/nexxa/cv-review", {
+    method: "POST",
+    token: getToken(),
+    body: { cv_text: cvText, word_count: wordCount, page_count: pageCount },
+  });
+
+  if (!res.ok) {
+    throw new CvReviewError(
+      res.status,
+      res.error || "Gagal melakukan analisis CV.",
+    );
+  }
+
+  return mapToReviewResult(res.data as BackendNormalizedOutput, wordCount, pageCount);
 }

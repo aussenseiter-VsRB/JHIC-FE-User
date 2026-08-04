@@ -1,7 +1,8 @@
 import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { analyzeCv, LOADING_STAGES } from "./services/reviewService";
+import { useNavigate } from "react-router-dom";
+import { reviewCv, CvReviewError, LOADING_STAGES } from "./services/reviewService";
 import type { ReviewResult } from "./services/reviewService";
 import UploadForm from "./components/UploadForm";
 import LoadingScreen from "./components/LoadingScreen";
@@ -29,12 +30,15 @@ function CvReview() {
   const [step, setStep] = useState<Step>("upload");
   const [file, setFile] = useState<File | null>(null);
   const [result, setResult] = useState<ReviewResult | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [currentStage, setCurrentStage] = useState(0);
   const [progress, setProgress] = useState(0);
   const intervalsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const navigate = useNavigate();
 
   const handleFileSelect = useCallback((f: File | null) => {
     setFile(f);
+    setError(null);
   }, []);
 
   const handleStartAnalysis = useCallback(async () => {
@@ -58,19 +62,31 @@ function CvReview() {
     }, 80);
 
     try {
-      const reviewResult = await analyzeCv();
+      const { extractCvFile } = await import("./services/cvFile");
+      const extracted = await extractCvFile(file);
+      const reviewResult = await reviewCv(extracted.text, extracted.wordCount, 0);
       clearInterval(pi);
       setProgress(100);
       await new Promise((r) => setTimeout(r, 400));
       setResult(reviewResult);
+      setError(null);
       setStep("result");
-    } catch {
+    } catch (err) {
       clearInterval(pi);
       setStep("upload");
+      if (err instanceof CvReviewError && err.status === 401) {
+        navigate("/login");
+        return;
+      }
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Terjadi kesalahan saat menganalisis CV.",
+      );
     }
 
     intervalsRef.current.forEach(clearTimeout);
-  }, [file]);
+  }, [file, navigate]);
 
   const handleReset = useCallback(() => {
     setFile(null);
@@ -100,6 +116,7 @@ function CvReview() {
             <UploadForm
               data={data.upload}
               file={file}
+              errorMsg={error}
               onFileSelect={handleFileSelect}
               onStartAnalysis={handleStartAnalysis}
             />
