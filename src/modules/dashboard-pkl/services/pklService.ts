@@ -59,7 +59,10 @@ async function guard<T>(res: {
 }
 
 export async function listRequests(): Promise<PklRequest[]> {
-  return guard(await request("/approval/pkl", { token: getToken() }));
+  const res = await guard<PklRequest[] | null>(
+    await request("/approval/pkl", { token: getToken() }),
+  );
+  return Array.isArray(res) ? res : [];
 }
 
 export async function createRequest(input: CreatePklInput): Promise<PklRequest> {
