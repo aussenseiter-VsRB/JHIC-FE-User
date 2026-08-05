@@ -8,42 +8,36 @@
   "slides": [
     {
       "id": 1,
-      "icon": "Sparkles",
       "accent": "purple",
       "title": "Selamat Datang di Nexxa AI",
       "description": "Asisten AI sekolah yang siap menemanimu — konsultasi, review CV, hingga pantau PKL, semua dalam satu tempat."
     },
     {
       "id": 2,
-      "icon": "MessageSquare",
       "accent": "purple",
       "title": "Konsultasi dengan Nexxa AI",
       "description": "Tanyakan apa pun seputar sekolah, PKL, dan karirmu. Nexxa siap menjawab kapan saja, 24 jam nonstop."
     },
     {
       "id": 3,
-      "icon": "Search",
       "accent": "blue",
       "title": "Riwayat Konsultasi",
       "description": "Semua percakapanmu tersimpan rapi dan bisa dicari. Temukan kembali jawaban penting dengan cepat."
     },
     {
       "id": 4,
-      "icon": "Stamp",
       "accent": "green",
       "title": "Dashboard PKL",
       "description": "Pantau status surat PKL-mu dari pengajuan hingga persetujuan, lengkap dengan notifikasi dan stempel status."
     },
     {
       "id": 5,
-      "icon": "FileText",
       "accent": "yellow",
       "title": "Review CV Otomatis",
       "description": "Unggah CV-mu dan dapatkan analisis menyeluruh beserta saran perbaikan dari AI dalam hitungan detik."
     },
     {
       "id": 6,
-      "icon": "CalendarClock",
       "accent": "blue",
       "title": "Timeline A-GIT",
       "description": "Jelajahi tahapan A-GIT melalui timeline interaktif yang membuat seluruh proses mudah dipahami."

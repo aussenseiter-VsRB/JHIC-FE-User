@@ -1,10 +1,14 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { Sparkles, MessageSquare, Search, Stamp, FileText, CalendarClock } from "lucide-react";
+import slide1 from "../../../assets/onboarding/slide1.png";
+import slide2 from "../../../assets/onboarding/slide2.png";
+import slide3 from "../../../assets/onboarding/slide3.png";
+import slide4 from "../../../assets/onboarding/slide4.png";
+import slide5 from "../../../assets/onboarding/slide5.png";
+import slide6 from "../../../assets/onboarding/slide6.png";
 
 export interface OnboardingSlideData {
   id: number;
-  icon: string;
   accent: string;
   title: string;
   description: string;
@@ -17,21 +21,13 @@ interface SlideCardProps {
   slideLabel: string;
 }
 
-const iconMap = {
-  Sparkles,
-  MessageSquare,
-  Search,
-  Stamp,
-  FileText,
-  CalendarClock,
-} as const;
+const images = [slide1, slide2, slide3, slide4, slide5, slide6];
 
-const iconVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.5, rotate: -12 },
+const mediaVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.92 },
   visible: {
     opacity: 1,
     scale: 1,
-    rotate: 0,
     transition: { type: "spring", stiffness: 260, damping: 20, delay: 0.08 },
   },
 };
@@ -46,8 +42,6 @@ const textVariants: Variants = {
 };
 
 function SlideCard({ slide, index, total, slideLabel }: SlideCardProps) {
-  const SlideIcon = iconMap[slide.icon as keyof typeof iconMap];
-
   return (
     <div className="onboarding-slide" data-accent={slide.accent}>
       <span className="onboarding-slide-index">
@@ -55,12 +49,12 @@ function SlideCard({ slide, index, total, slideLabel }: SlideCardProps) {
       </span>
 
       <motion.div
-        className="onboarding-slide-icon"
-        variants={iconVariants}
+        className="onboarding-slide-media"
+        variants={mediaVariants}
         initial="hidden"
         animate="visible"
       >
-        <SlideIcon size={44} strokeWidth={1.5} aria-hidden="true" />
+        <img src={images[index]} alt={slide.title} />
       </motion.div>
 
       <motion.div
