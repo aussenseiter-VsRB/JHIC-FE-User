@@ -7,7 +7,7 @@
     "pending": "Menunggu",
     "accepted": "Disetujui",
     "rejected": "Ditolak",
-    "needs_further_action": "Perlu Perbaikan",
+    "needs_further_action": "Perlu Tindakan",
     "cancelled": "Dibatalkan"
   },
   "empty": {
@@ -37,7 +37,7 @@
   },
   "cancelAction": {
     "title": "Batalkan Pengajuan",
-    "description": "Masukkan alasan pembatalan. Pengajuan hanya bisa dibatalkan saat status Menunggu atau Perlu Perbaikan.",
+    "description": "Masukkan alasan pembatalan. Pengajuan hanya bisa dibatalkan saat status Menunggu atau Perlu Tindakan.",
     "reasonPlaceholder": "Salah memasukkan nama perusahaan",
     "submit": "Batalkan Pengajuan",
     "back": "Kembali"
