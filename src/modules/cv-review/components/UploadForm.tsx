@@ -11,42 +11,46 @@ interface UploadFormProps {
     fileRestriction: string;
     selectButton: string;
     analyzeButton: string;
-    errorFormat?: string;
-    errorSize?: string;
   };
   file: File | null;
+  errorMsg?: string | null;
   onFileSelect: (file: File | null) => void;
   onStartAnalysis: () => void;
 }
 
 const MAX_FILE_SIZE_MB = 5;
+const ALLOWED_EXTENSIONS = [".pdf", ".docx", ".txt", ".md", ".markdown"];
 
 function UploadForm({
   data,
   file,
+  errorMsg,
   onFileSelect,
   onStartAnalysis,
 }: UploadFormProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [localError, setLocalError] = useState<string | null>(null);
+
+  const displayedError = errorMsg ?? localError;
 
   const validateAndSetFile = useCallback(
     (f: File) => {
-      setErrorMsg(null);
-      if (f.type !== "application/pdf" && !f.name.toLowerCase().endsWith(".pdf")) {
-        setErrorMsg(data.errorFormat || "File harus berformat PDF (.pdf)");
+      setLocalError(null);
+      const name = f.name.toLowerCase();
+      if (!ALLOWED_EXTENSIONS.some((ext) => name.endsWith(ext))) {
+        setLocalError("Format file tidak didukung — gunakan PDF, DOCX, TXT, atau MD.");
         return;
       }
       if (f.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
-        setErrorMsg(
-          data.errorSize || `Ukuran file melebihi batas maksimal ${MAX_FILE_SIZE_MB} MB`,
+        setLocalError(
+          `Ukuran file melebihi batas maksimal ${MAX_FILE_SIZE_MB} MB`,
         );
         return;
       }
       onFileSelect(f);
     },
-    [data.errorFormat, data.errorSize, onFileSelect],
+    [onFileSelect],
   );
 
   const handleClick = useCallback(() => {
@@ -90,7 +94,7 @@ function UploadForm({
     (e: React.MouseEvent) => {
       e.stopPropagation();
       onFileSelect(null);
-      setErrorMsg(null);
+      setLocalError(null);
     },
     [onFileSelect],
   );
@@ -106,7 +110,7 @@ function UploadForm({
       </div>
 
       <AnimatePresence>
-        {errorMsg && (
+        {displayedError && (
           <motion.div
             className="upload-error-alert"
             initial={{ opacity: 0, y: -8, height: 0 }}
@@ -114,7 +118,7 @@ function UploadForm({
             exit={{ opacity: 0, y: -8, height: 0 }}
           >
             <AlertCircle size={18} className="upload-error-icon" />
-            <span>{errorMsg}</span>
+            <span>{displayedError}</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -129,7 +133,7 @@ function UploadForm({
         <input
           ref={inputRef}
           type="file"
-          accept=".pdf,application/pdf"
+          accept=".pdf,.docx,.txt,.md,.markdown,application/pdf"
           onChange={handleFileChange}
           className="upload-input-hidden"
         />
@@ -145,7 +149,7 @@ function UploadForm({
                   {file.name}
                 </span>
                 <span className="upload-file-size">
-                  {(file.size / 1024 / 1024).toFixed(2)} MB • PDF Document
+                  {(file.size / 1024 / 1024).toFixed(2)} MB • Dokumen
                 </span>
               </div>
             </div>

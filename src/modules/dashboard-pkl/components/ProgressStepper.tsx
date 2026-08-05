@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
-import { CheckCircle, Clock, FileText } from "lucide-react";
+import { CheckCircle, Clock, AlertTriangle, XCircle, FileText } from "lucide-react";
 import Stamp from "./Stamp";
+import type { StampStatus } from "./Stamp";
 
 export interface Step {
   key: string;
   label: string;
   nama: string;
-  status: "approved" | "pending";
+  status: StampStatus;
   tanggal: string | null;
   catatan: string | null;
 }
@@ -15,7 +16,6 @@ export interface Step {
 interface ProgressStepperProps {
   steps: Step[];
   nomorSurat: string;
-  namaSiswa: string;
   perusahaan: string;
   periode: string;
 }
@@ -36,16 +36,59 @@ const itemVariants: Variants = {
   },
 };
 
+function StepIcon({ status, active }: { status: StampStatus; active: boolean }) {
+  if (status === "approved") {
+    return (
+      <motion.div
+        className="step-icon approved"
+        initial={{ scale: 0, rotate: -45 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+      >
+        <CheckCircle size={20} />
+      </motion.div>
+    );
+  }
+  if (status === "rejected") {
+    return (
+      <div className="step-icon rejected">
+        <XCircle size={20} />
+      </div>
+    );
+  }
+  if (status === "needs_further_action") {
+    return (
+      <div className="step-icon needs-further">
+        <AlertTriangle size={20} />
+      </div>
+    );
+  }
+  return (
+    <div className={`step-icon ${active ? "active" : "pending"}`}>
+      {active ? (
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        >
+          <Clock size={20} />
+        </motion.div>
+      ) : (
+        <Clock size={20} />
+      )}
+    </div>
+  );
+}
+
 function ProgressStepper({ steps, nomorSurat, perusahaan, periode }: ProgressStepperProps) {
-  const approvedCount = steps.filter((s) => s.status === "approved").length;
-  const progress = (approvedCount / steps.length) * 100;
+  const decidedCount = steps.filter((s) => s.status !== "pending").length;
+  const progress = (decidedCount / steps.length) * 100;
 
   return (
     <div className="progress-stepper">
       <div className="progress-header">
         <div className="progress-header-top">
           <h2>Status Persetujuan Surat</h2>
-          <span className="progress-badge">{approvedCount}/{steps.length} Selesai</span>
+          <span className="progress-badge">{decidedCount}/{steps.length} Selesai</span>
         </div>
         <div className="progress-meta">
           <div className="progress-meta-item">
@@ -87,44 +130,21 @@ function ProgressStepper({ steps, nomorSurat, perusahaan, periode }: ProgressSte
         animate="visible"
       >
         {steps.map((step, idx) => {
-          const isApproved = step.status === "approved";
-
-          const isActive = idx === approvedCount;
+          const isDecided = step.status !== "pending";
+          const isActive = idx === decidedCount;
 
           return (
             <motion.div
               key={step.key}
-              className={`step-item ${isApproved ? "approved" : ""} ${isActive ? "active" : ""}`}
+              className={`step-item step-item--${step.status} ${isDecided ? "approved" : ""} ${isActive ? "active" : ""}`}
               variants={itemVariants}
-              whileHover={isApproved ? { scale: 1.02, x: 4 } : {}}
+              whileHover={isDecided ? { scale: 1.02, x: 4 } : {}}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <div className="step-icon-wrapper">
-                {isApproved ? (
-                  <motion.div
-                    className="step-icon approved"
-                    initial={{ scale: 0, rotate: -45 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 20, delay: idx * 0.15 }}
-                  >
-                    <CheckCircle size={20} />
-                  </motion.div>
-                ) : (
-                  <div className={`step-icon ${isActive ? "active" : "pending"}`}>
-                    {isActive ? (
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                      >
-                        <Clock size={20} />
-                      </motion.div>
-                    ) : (
-                      <Clock size={20} />
-                    )}
-                  </div>
-                )}
+                <StepIcon status={step.status} active={isActive} />
                 {idx < steps.length - 1 && (
-                  <div className={`step-connector ${isApproved ? "approved" : ""}`} />
+                  <div className={`step-connector ${isDecided ? "approved" : ""}`} />
                 )}
               </div>
 
